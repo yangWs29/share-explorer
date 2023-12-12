@@ -5,5 +5,8 @@
   "description": "",
   "scripts": {},
   "keywords": [],
-  "author": ""
+  "author": "",
+  "devDependencies": {
+    "@types/node": "20.10.4"
+  }
 }
