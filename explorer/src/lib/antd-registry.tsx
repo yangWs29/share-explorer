@@ -29,7 +29,7 @@ const AntdConfigProvider: React.FC<React.PropsWithChildren> = ({ children }) => 
         algorithm: theme.darkAlgorithm,
       }}
     >
-      <Layout style={{ minHeight: '100vh' }}>{children}</Layout>
+      <Layout style={{ height: '100vh' }}>{children}</Layout>
     </ConfigProvider>
   )
 }
@@ -38,7 +38,7 @@ const AntdRegistry: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <AntdStyledComponentsRegistry>
       <AntdConfigProvider>
-        <App>{children}</App>
+        <App style={{ height: '100%' }}>{children}</App>
       </AntdConfigProvider>
     </AntdStyledComponentsRegistry>
   )

@@ -1,8 +1,8 @@
 import React from 'react'
 import { readdir } from '@/explorer-manager/src/main.mjs'
 import { PathContextProvider } from '@/app/path/context'
-import { Card } from 'antd'
-import ExplorerBreadcrumb from '@/components/explorer-breadcrumb'
+import LayoutFooter from '@/app/path/[[...path]]/layout-footer'
+import LayoutContent from '@/app/path/[[...path]]/layout-content'
 
 const Layout: React.FC<React.PropsWithChildren & { params: { path: string[] } }> = ({
   children,
@@ -12,7 +12,9 @@ const Layout: React.FC<React.PropsWithChildren & { params: { path: string[] } }>
 
   return (
     <PathContextProvider value={readdirList}>
-      <Card title={<ExplorerBreadcrumb />}>{children}</Card>
+      <LayoutContent>{children}</LayoutContent>
+
+      <LayoutFooter />
     </PathContextProvider>
   )
 }
