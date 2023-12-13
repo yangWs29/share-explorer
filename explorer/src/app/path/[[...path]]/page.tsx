@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import CardDisplay from '@/app/path/[[...path]]/card-display'
-import TableDisplay from '@/app/path/[[...path]]/tale-display'
+import TableDisplay from '@/app/path/[[...path]]/table-display'
 import { usePathContext } from '@/app/path/context'
 
 const Page: React.FC = () => {
