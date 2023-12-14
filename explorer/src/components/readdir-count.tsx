@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
 import { Space } from 'antd'
-import { usePathContext } from '@/app/path/context'
+import { useReaddirContext } from '@/app/path/readdir-context'
 
 const ReaddirCount: React.FC = () => {
-  const { readdir } = usePathContext()
+  const readdir = useReaddirContext()
 
   return (
     <Space>

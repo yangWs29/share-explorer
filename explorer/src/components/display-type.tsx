@@ -1,10 +1,11 @@
 import React from 'react'
 import { Button, Space } from 'antd'
-import { usePathContext } from '@/app/path/context'
 import { AppstoreOutlined, TableOutlined } from '@ant-design/icons'
+import { useDisplayTypeContext, useDisplayTypeContextDispatch } from '@/app/path/display-type-context'
 
 const DisplayType: React.FC = () => {
-  const { display_type, changeDisplayType } = usePathContext()
+  const display_type = useDisplayTypeContext()
+  const changeDisplayType = useDisplayTypeContextDispatch()
 
   return (
     <Space>

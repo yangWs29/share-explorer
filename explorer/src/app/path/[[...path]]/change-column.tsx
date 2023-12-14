@@ -2,11 +2,13 @@
 import React from 'react'
 import { Button, Flex, InputNumber, Slider, Space } from 'antd'
 import { ReloadOutlined } from '@ant-design/icons'
-import { usePathContext } from '@/app/path/context'
 import { useViewport } from '@/components/viewport/context'
+import { useCardColumnContext, useCardColumnContextDispatch } from '@/app/path/card-colunm-context'
+import { useDisplayTypeContext } from '@/app/path/display-type-context'
 
 const SliderChangeColumn: React.FC = () => {
-  const { column, changeColumn } = usePathContext()
+  const column = useCardColumnContext()
+  const changeColumn = useCardColumnContextDispatch()
   const { width } = useViewport()
 
   return (
@@ -40,7 +42,7 @@ const SliderChangeColumn: React.FC = () => {
 }
 
 const ChangeColumn: React.FC = () => {
-  const { display_type } = usePathContext()
+  const display_type = useDisplayTypeContext()
 
   return display_type === 'card' && <SliderChangeColumn />
 }

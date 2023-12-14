@@ -1,16 +1,16 @@
 'use client'
 import React from 'react'
-import { usePathContext } from '@/app/path/context'
 import { Space, Table } from 'antd'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FileOutlined, FolderOutlined } from '@ant-design/icons'
 import Bit from '@/components/bit'
 import DateFormat from '@/components/date-format'
+import { useReaddirContext } from '@/app/path/readdir-context'
 
 const TableDisplay: React.FC = () => {
   const pathname = usePathname()
-  const { readdir } = usePathContext()
+  const readdir = useReaddirContext()
 
   return (
     <Table

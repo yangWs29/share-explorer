@@ -2,10 +2,10 @@
 import React from 'react'
 import CardDisplay from '@/app/path/[[...path]]/card-display'
 import TableDisplay from '@/app/path/[[...path]]/table-display'
-import { usePathContext } from '@/app/path/context'
+import { useDisplayTypeContext } from '@/app/path/display-type-context'
 
 const Page: React.FC = () => {
-  const { display_type } = usePathContext()
+  const display_type = useDisplayTypeContext()
 
   return <>{display_type === 'table' ? <TableDisplay /> : <CardDisplay />}</>
 }

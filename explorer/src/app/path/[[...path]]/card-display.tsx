@@ -1,16 +1,18 @@
 'use client'
 import React from 'react'
-import { usePathContext } from '@/app/path/context'
 import { Card, Flex, List } from 'antd'
 import { FileOutlined, FolderOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Bit from '@/components/bit'
 import DateFormat from '@/components/date-format'
+import { useReaddirContext } from '@/app/path/readdir-context'
+import { useCardColumnContext } from '@/app/path/card-colunm-context'
 
 const CardDisplay: React.FC = () => {
   const pathname = usePathname()
-  const { readdir, column } = usePathContext()
+  const readdir = useReaddirContext()
+  const column = useCardColumnContext()
 
   return (
     <List
