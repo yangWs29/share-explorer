@@ -8,11 +8,11 @@ import { usePathname } from 'next/navigation'
 
 const CardDisplay: React.FC = () => {
   const pathname = usePathname()
-  const { readdir } = usePathContext()
+  const { readdir, column } = usePathContext()
 
   return (
     <List
-      grid={{ gutter: 0, xs: 3, md: 4, lg: 5, xl: 6, xxl: 7 }}
+      grid={{ gutter: 0, column: column }}
       dataSource={readdir}
       renderItem={(item) => {
         return (

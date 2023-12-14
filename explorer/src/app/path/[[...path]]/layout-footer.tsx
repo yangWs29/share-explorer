@@ -3,6 +3,7 @@ import React from 'react'
 import { Flex, Layout, Space } from 'antd'
 import ReaddirCount from '@/components/readdir-count'
 import DisplayType from '@/components/display-type'
+import ChangeColumn from '@/app/path/[[...path]]/change-column'
 
 const LayoutFooter: React.FC = () => {
   return (
@@ -16,6 +17,8 @@ const LayoutFooter: React.FC = () => {
 
         <Flex justify="flex-end" flex={1}>
           <Space>
+            <ChangeColumn />
+
             <DisplayType />
           </Space>
         </Flex>

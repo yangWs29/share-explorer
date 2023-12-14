@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import React from 'react'
 import AntdStyledComponentsRegistry from '@/lib/antd-registry'
+import Viewport from '@/components/viewport'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,7 +15,9 @@ export const metadata: Metadata = {
 const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => (
   <html lang="en">
     <body className={inter.className}>
-      <AntdStyledComponentsRegistry>{children}</AntdStyledComponentsRegistry>
+      <AntdStyledComponentsRegistry>
+        <Viewport>{children}</Viewport>
+      </AntdStyledComponentsRegistry>
     </body>
   </html>
 )
