@@ -5,6 +5,8 @@ import { Card, Flex, List } from 'antd'
 import { FileOutlined, FolderOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import Bit from '@/components/bit'
+import DateFormat from '@/components/date-format'
 
 const CardDisplay: React.FC = () => {
   const pathname = usePathname()
@@ -32,6 +34,16 @@ const CardDisplay: React.FC = () => {
                   </span>
                 </Flex>
               </Link>
+              {item.stat && (
+                <Flex justify="space-between" wrap="wrap">
+                  <Flex flex="1 0 auto" style={{ marginRight: 20 }}>
+                    {item.is_directory ? '-' : <Bit>{item.stat.size}</Bit>}
+                  </Flex>
+                  <Flex>
+                    <DateFormat>{item.stat.mtimeMs}</DateFormat>
+                  </Flex>
+                </Flex>
+              )}
             </Card>
           </List.Item>
         )

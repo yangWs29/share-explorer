@@ -5,6 +5,8 @@ import { Space, Table } from 'antd'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FileOutlined, FolderOutlined } from '@ant-design/icons'
+import Bit from '@/components/bit'
+import DateFormat from '@/components/date-format'
 
 const TableDisplay: React.FC = () => {
   const pathname = usePathname()
@@ -38,7 +40,7 @@ const TableDisplay: React.FC = () => {
           width: '160px',
           sorter: (a, b) => (a?.stat?.size ?? 0) - (b?.stat?.size ?? 0),
           render: (size) => {
-            return size
+            return <Bit>{size}</Bit>
           },
         },
         {
@@ -47,7 +49,7 @@ const TableDisplay: React.FC = () => {
           width: '160px',
           sorter: (a, b) => (a?.stat?.mtimeMs ?? 0) - (b?.stat?.mtimeMs ?? 0),
           render: (time) => {
-            return time
+            return <DateFormat>{time}</DateFormat>
           },
         },
       ]}
