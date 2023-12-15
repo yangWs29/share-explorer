@@ -5,9 +5,11 @@ import { isGif, isImage, isVideo, isZip } from '@/components/preview/ext-rxp'
 import { usePreviewGroupDispatch } from '@/components/preview/proview-group-context'
 import { ReaddirItemType } from '@/explorer-manager/src/type'
 import { useReplacePathname } from '@/components/use-replace-pathname'
+import { useVideoPathDispatch } from '@/components/video-modal/video-path-context'
 
 const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
   const previewGroupDispatch = usePreviewGroupDispatch()
+  const videoPathDispatch = useVideoPathDispatch()
   const { name, is_directory } = item
   const { staticPath } = useReplacePathname()
 
@@ -16,7 +18,7 @@ const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
   }
 
   if (isVideo(name)) {
-    return <VideoCameraOutlined />
+    return <VideoCameraOutlined onClick={() => videoPathDispatch(staticPath(name))} />
   }
 
   if (isImage(name)) {

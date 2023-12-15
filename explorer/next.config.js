@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compiler: {
-    styledComponents: { ssr: false },
+    styledComponents: { ssr: true },
   },
 }
 
