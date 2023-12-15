@@ -1,13 +1,13 @@
 'use client'
 import React from 'react'
 import { Card, Flex, List } from 'antd'
-import { FileOutlined, FolderOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Bit from '@/components/bit'
 import DateFormat from '@/components/date-format'
 import { useReaddirContext } from '@/app/path/readdir-context'
 import { useCardColumnContext } from '@/app/path/card-colunm-context'
+import Preview from '@/components/preview'
 
 const CardDisplay: React.FC = () => {
   const pathname = usePathname()
@@ -31,9 +31,9 @@ const CardDisplay: React.FC = () => {
                   align={'center'}
                   style={{ fontSize: '3em', padding: `${61.8 / 2}% 0`, position: 'relative' }}
                 >
-                  <span style={{ position: 'absolute' }}>
-                    {item.is_directory ? <FolderOutlined /> : <FileOutlined />}
-                  </span>
+                  <div style={{ position: 'absolute', width: '100%', height: '100%' }}>
+                    <Preview item={item} />
+                  </div>
                 </Flex>
               </Link>
               {item.stat && (
