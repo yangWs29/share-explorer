@@ -6,11 +6,6 @@ import extName from 'ext-name'
 const checkIsHideExp = /^\./
 
 //https://github.com/vercel/next.js/discussions/15453#discussioncomment-6565699
-/**
- * Took this syntax from https://github.com/MattMorgis/async-stream-generator
- * Didn't find proper documentation: how come you can iterate on a Node.js ReadableStream via "of" operator?
- * What's "for await"?
- */
 export const nodeStreamToIterator = async function* (stream) {
   for await (const chunk of stream) {
     yield chunk
@@ -18,10 +13,6 @@ export const nodeStreamToIterator = async function* (stream) {
 }
 
 /**
- * Taken from Next.js doc
- * https://nextjs.org/docs/app/building-your-application/routing/router-handlers#streaming
- * Itself taken from mozilla doc
- * https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream#convert_async_iterator_to_stream
  * @param iterator {any}
  * @returns {ReadableStream<any>}
  */
