@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Card, Flex, List } from 'antd'
+import { Button, Card, Flex, List } from 'antd'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Bit from '@/components/bit'
@@ -8,6 +8,8 @@ import DateFormat from '@/components/date-format'
 import { useReaddirContext } from '@/app/path/readdir-context'
 import { useCardColumnContext } from '@/app/path/card-colunm-context'
 import Preview from '@/components/preview'
+import ActionDropdown from '@/components/action-dropdown'
+import { EllipsisOutlined } from '@ant-design/icons'
 
 const CardDisplay: React.FC = () => {
   const pathname = usePathname()
@@ -21,7 +23,14 @@ const CardDisplay: React.FC = () => {
       renderItem={(item) => {
         return (
           <List.Item style={{ padding: '0 8px' }}>
-            <Card title={item.name}>
+            <Card
+              title={item.name}
+              extra={
+                <ActionDropdown item={item}>
+                  <Button icon={<EllipsisOutlined />} />
+                </ActionDropdown>
+              }
+            >
               <Link
                 href={item.is_directory ? `${pathname}/${encodeURIComponent(item.name)}` : `${pathname}`}
                 prefetch={false}
