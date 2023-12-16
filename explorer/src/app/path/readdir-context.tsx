@@ -4,17 +4,18 @@ import { ReaddirListType } from '@/explorer-manager/src/type'
 import React from 'react'
 import { useReplacePathname } from '@/components/use-replace-pathname'
 import { useRouter } from 'next/navigation'
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import { useRequest } from 'ahooks'
+
+export const axiosGetReaddir = (opt: AxiosRequestConfig<ReaddirListType>) =>
+  axios.get<{ readdir: ReaddirListType }>('/path/api/readdir', opt)
 
 export const useGetReaddir = () => {
   return useRequest(
     (path: string) =>
-      axios
-        .get<{ readdir: ReaddirListType }>('/path/api/readdir', {
-          params: { path, only_dir: '0', only_file: '0', has_file_stat: '1' },
-        })
-        .then(({ data }) => data),
+      axiosGetReaddir({
+        params: { path, only_dir: '0', only_file: '0', has_file_stat: '1' },
+      }).then(({ data }) => data),
     { manual: true },
   )
 }

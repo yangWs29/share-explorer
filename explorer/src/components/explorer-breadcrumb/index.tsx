@@ -28,7 +28,7 @@ const ExplorerBreadcrumb: React.FC = () => {
                 length === k + 1 && length !== 1 ? (
                   title
                 ) : (
-                  <BreadcrumbDropdownReaddir title={title} href={href}>
+                  <BreadcrumbDropdownReaddir href={href}>
                     <Link href={href}>{k === 0 ? <HomeOutlined /> : title}</Link>
                   </BreadcrumbDropdownReaddir>
                 ),

@@ -1,12 +1,12 @@
 'use client'
 import React, { useContext, useState } from 'react'
 import { Button, Space } from 'antd'
-import { ReaddirItemType, ReaddirListType } from '@/explorer-manager/src/type'
+import { ReaddirItemType } from '@/explorer-manager/src/type'
 import styled from 'styled-components'
 import { isEmpty } from 'lodash'
 import { FolderOpenOutlined, FolderOutlined, LoadingOutlined, MinusOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
-import axios from 'axios'
+import { axiosGetReaddir } from '@/app/path/readdir-context'
 
 export const LiStyle = styled.li``
 
@@ -24,13 +24,11 @@ const useReaddirRequest = (
 ) => {
   return useRequest(
     (path: string = init_path) =>
-      axios
-        .get<{ readdir: ReaddirListType }>('/path/api/readdir', {
-          params: { path: path, only_dir: 1 },
-        })
-        .then(({ data: { readdir } }) => {
-          return readdir
-        }),
+      axiosGetReaddir({
+        params: { path: path, only_dir: 1 },
+      }).then(({ data: { readdir } }) => {
+        return readdir
+      }),
     { manual, cacheKey: init_path ? init_path : undefined, staleTime: 5000 },
   )
 }
