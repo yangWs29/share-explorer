@@ -5,6 +5,8 @@ import { CardColumnProvider } from '@/app/path/card-colunm-context'
 import { DisplayTypeProvider } from '@/app/path/display-type-context'
 import { VideoPathProvider } from '@/components/video-modal/video-path-context'
 import { ImgExifProvider } from '@/components/img-exif-modal/img-exif-context'
+import { MovePathProvider } from '@/components/move-modal/move-path-context'
+import { RenameProvider } from '@/components/rename-modal/rename-context'
 
 export const PathContextProvider: React.FC<React.ProviderProps<ReaddirListType>> = ({ value, children }) => {
   return (
@@ -13,7 +15,11 @@ export const PathContextProvider: React.FC<React.ProviderProps<ReaddirListType>>
         <CardColumnProvider>
           <DisplayTypeProvider>
             <VideoPathProvider>
-              <ImgExifProvider>{children}</ImgExifProvider>
+              <ImgExifProvider>
+                <MovePathProvider>
+                  <RenameProvider>{children}</RenameProvider>
+                </MovePathProvider>
+              </ImgExifProvider>
             </VideoPathProvider>
           </DisplayTypeProvider>
         </CardColumnProvider>

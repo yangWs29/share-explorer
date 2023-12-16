@@ -2,6 +2,9 @@ import fs from 'fs'
 import { fileTypeFromFile } from 'file-type'
 import { formatPath } from './format-path.mjs'
 import extName from 'ext-name'
+import fsExtra from 'fs-extra'
+
+const { moveSync } = fsExtra
 
 const checkIsHideExp = /^\./
 
@@ -102,4 +105,29 @@ export const fsStream = (path = '.', option = {}) => {
   } else {
     return Buffer.from('')
   }
+}
+
+export const deleteAction = async (path = '') => {
+  const delete_path = formatPath(path)
+  const is_exist = fs.existsSync(delete_path)
+
+  if (is_exist) {
+    if (['/', process.env.HOME, `${process.env.HOME}/`].includes(delete_path)) {
+      return false
+    }
+
+    return fs.rmSync(formatPath(path), { recursive: true })
+  }
+}
+
+export const moveAction = async (src, dest) => {
+  return moveSync(formatPath(src), formatPath(dest), { overwrite: false })
+}
+
+export const renameAction = (old_path, new_path) => {
+  return fs.renameSync(formatPath(old_path), formatPath(new_path))
+}
+
+export const createFolderAction = (path) => {
+  return fs.mkdirSync(formatPath(path))
 }
