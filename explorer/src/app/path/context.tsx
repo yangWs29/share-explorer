@@ -7,6 +7,7 @@ import { VideoPathProvider } from '@/components/video-modal/video-path-context'
 import { ImgExifProvider } from '@/components/img-exif-modal/img-exif-context'
 import { MovePathProvider } from '@/components/move-modal/move-path-context'
 import { RenameProvider } from '@/components/rename-modal/rename-context'
+import { DfProvider } from '@/components/df-context'
 
 export const PathContextProvider: React.FC<React.ProviderProps<ReaddirListType>> = ({ value, children }) => {
   return (
@@ -17,7 +18,9 @@ export const PathContextProvider: React.FC<React.ProviderProps<ReaddirListType>>
             <VideoPathProvider>
               <ImgExifProvider>
                 <MovePathProvider>
-                  <RenameProvider>{children}</RenameProvider>
+                  <RenameProvider>
+                    <DfProvider>{children}</DfProvider>
+                  </RenameProvider>
                 </MovePathProvider>
               </ImgExifProvider>
             </VideoPathProvider>

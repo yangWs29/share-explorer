@@ -10,11 +10,14 @@ import { useCardColumnContext } from '@/app/path/card-colunm-context'
 import Preview from '@/components/preview'
 import ActionDropdown from '@/components/action-dropdown'
 import { EllipsisOutlined } from '@ant-design/icons'
+import { FolderSizeBtn } from '@/components/folder-size'
+import { useReplacePathname } from '@/components/use-replace-pathname'
 
 const CardDisplay: React.FC = () => {
   const pathname = usePathname()
   const readdir = useReaddirContext()
   const column = useCardColumnContext()
+  const { joinSearchPath, joinPath } = useReplacePathname()
 
   return (
     <List
@@ -31,10 +34,7 @@ const CardDisplay: React.FC = () => {
                 </ActionDropdown>
               }
             >
-              <Link
-                href={item.is_directory ? `${pathname}/${encodeURIComponent(item.name)}` : `${pathname}`}
-                prefetch={false}
-              >
+              <Link href={item.is_directory ? joinPath(item.name) : `${pathname}`} prefetch={false}>
                 <Flex
                   justify={'center'}
                   align={'center'}
@@ -57,7 +57,11 @@ const CardDisplay: React.FC = () => {
               {item.stat && (
                 <Flex justify="space-between" wrap="wrap">
                   <Flex flex="1 0 auto" style={{ marginRight: 20 }}>
-                    {item.is_directory ? '-' : <Bit>{item.stat.size}</Bit>}
+                    {item.is_directory ? (
+                      <FolderSizeBtn path={joinSearchPath(item.name)} />
+                    ) : (
+                      <Bit>{item.stat.size}</Bit>
+                    )}
                   </Flex>
                   <Flex>
                     <DateFormat>{item.stat.mtimeMs}</DateFormat>

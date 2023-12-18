@@ -96,6 +96,12 @@ importers:
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
+      get-folder-size:
+        specifier: ^4.0.0
+        version: 4.0.0
+      node-df:
+        specifier: ^0.1.4
+        version: 0.1.4
     devDependencies:
       '@types/node':
         specifier: 20.10.4
@@ -1686,6 +1692,18 @@ packages:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: true
 
+  /gar@1.0.4:
+    resolution: {integrity: sha512-w4n9cPWyP7aHxKxYHFQMegj7WIAsL/YX/C4Bs5Rr8s1H9M1rNtRWRsw+ovYMkXDQ5S4ZbYHsHAPmevPjPgw44w==}
+    dev: false
+
+  /get-folder-size@4.0.0:
+    resolution: {integrity: sha512-Z6sv92povPRhGTNv1j8pMOzkXCcJOYWFTSrulKzoF9qbIRHXtR2Vfjw964jsWVMrIKnwHzm/0jl8IFONbBbEKw==}
+    engines: {node: '>=14.13.0'}
+    hasBin: true
+    dependencies:
+      gar: 1.0.4
+    dev: false
+
   /get-intrinsic@1.2.2:
     resolution: {integrity: sha512-0gSo4ml/0j98Y3lngkFEot/zhiCeWsbYIlZ+uZOVgzLyLaUw7wxUL+nCTP0XJvJg1AXulJRI3UJi8GsbDuxdGA==}
     dependencies:
@@ -2319,6 +2337,12 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
+    dev: false
+
+  /node-df@0.1.4:
+    resolution: {integrity: sha512-9DJSSoyaimvfyGUU5UMEI/uzVBS0N+xkki9B38Usn/N1KldKAbRoAMwTf6hdyqNLwHYYpa2MrOeLt/xYJFcFWw==}
+    dependencies:
+      underscore: 1.13.6
     dev: false
 
   /object-assign@4.1.1:
@@ -3551,6 +3575,10 @@ packages:
       has-symbols: 1.0.3
       which-boxed-primitive: 1.0.2
     dev: true
+
+  /underscore@1.13.6:
+    resolution: {integrity: sha512-+A5Sja4HP1M08MaXya7p5LvjuM7K6q/2EaC0+iovj/wOcMsTzMvDFbasi/oSapiwOlt252IqsKqPjCl7huKS0A==}
+    dev: false
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}

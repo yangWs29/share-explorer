@@ -3,6 +3,7 @@ import { fileTypeFromFile } from 'file-type'
 import { formatPath } from './format-path.mjs'
 import extName from 'ext-name'
 import fsExtra from 'fs-extra'
+import getFolderSize from 'get-folder-size'
 
 const { moveSync } = fsExtra
 
@@ -130,4 +131,8 @@ export const renameAction = (old_path, new_path) => {
 
 export const createFolderAction = (path) => {
   return fs.mkdirSync(formatPath(path))
+}
+
+export const getFolderSizeAction = async (path) => {
+  return await getFolderSize.loose(formatPath(path))
 }

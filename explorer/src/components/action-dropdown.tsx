@@ -18,6 +18,7 @@ import { useRenameDispatch } from '@/components/rename-modal/rename-context'
 import { useDeleteReaddirItem } from '@/app/path/readdir-context'
 
 import { deleteAction } from '@/app/path/actions'
+import FolderSize from '@/components/folder-size'
 
 const ActionDropdown: React.FC<React.PropsWithChildren & { item: ReaddirItemType }> = ({ children, item }) => {
   const { modal } = App.useApp()
@@ -71,13 +72,17 @@ const ActionDropdown: React.FC<React.PropsWithChildren & { item: ReaddirItemType
     ],
   }
 
-  if (is_show_img_exif) {
+  if (item.is_directory || is_show_img_exif) {
     menu.items?.push({
       icon: <InfoOutlined />,
       label: '信息',
       key: 'info',
       onClick: () => {
-        changeImgExif(preview_path)
+        if (item.is_directory) {
+          modal.info({ title: path, content: <FolderSize path={path} />, width: 500 })
+        } else {
+          changeImgExif(preview_path)
+        }
       },
     })
   }
