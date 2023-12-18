@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  explorer-app:
+    container_name: explorer-app
+    image: 172.17.0.1:5000/tool-manager/explorer:latest
+    restart: always
+    environment:
+      - EXPLORER_PATH=/mnt
+      - TZ=Asia/Shanghai
+    volumes:
+      - /mnt:/mnt
+    #      - explorer-app-files:/app/explorer/
+    networks:
+      - share-explorer
+    user: 1000:100
+
+  # Add more containers below (nginx, postgres, etc.)
+  nginx:
+    container_name: explorer-app-nginx
+    image: nginx:latest
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/nginx.conf
+      - /mnt:/mnt
+    #      - explorer-app-files:/app/explorer/
+    depends_on:
+      - explorer-app
+    ports:
+      - '12200:80'
+    networks:
+      - share-explorer
+
+networks:
+  share-explorer:
+#    external: true
+#volumes:
+#  explorer-app-files:
+#    external: false

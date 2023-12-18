@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
-  "scripts": {},
+  "scripts": {
+    "explorer-dev": "npm run -w explorer dev",
+    "explorer-build": "npm run -w explorer build",
+    "explorer-start": "npm run -w explorer start",
+    "explorer-check-types": "npm run -w explorer check-types",
+    "explorer-build-docker": "docker build -f explorer.full.Dockerfile -t 192.168.31.17:5000/tool-manager/explorer .",
+    "explorer-push-docker": "docker push 192.168.31.17:5000/tool-manager/explorer"
+  },
   "workspaces": [
     "explorer",
     "explorer-manager"
