@@ -7,13 +7,15 @@
   "keywords": [],
   "author": "",
   "devDependencies": {
-    "@types/node": "20.10.4"
+    "@types/node": "20.10.4",
+    "@types/node-7z": "^2.1.8"
   },
   "dependencies": {
     "ext-name": "^5.0.0",
     "file-type": "^18.7.0",
     "fs-extra": "^11.2.0",
     "get-folder-size": "^4.0.0",
+    "node-7z": "^3.0.0",
     "node-df": "^0.1.4"
   }
 }

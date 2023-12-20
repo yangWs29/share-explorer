@@ -6,12 +6,14 @@ import { usePreviewGroupDispatch } from '@/components/preview/proview-group-cont
 import { ReaddirItemType } from '@/explorer-manager/src/type'
 import { useReplacePathname } from '@/components/use-replace-pathname'
 import { useVideoPathDispatch } from '@/components/video-modal/video-path-context'
+import { useUnpackPathDispatch } from '@/components/unpack-modal/unpack-path-context'
 
 const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
   const previewGroupDispatch = usePreviewGroupDispatch()
   const videoPathDispatch = useVideoPathDispatch()
   const { name, is_directory } = item
-  const { staticPath } = useReplacePathname()
+  const { staticPath, joinSearchPath } = useReplacePathname()
+  const unpackPathDispatch = useUnpackPathDispatch()
 
   if (is_directory) {
     return <FolderOutlined />
@@ -41,7 +43,7 @@ const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
   }
 
   if (isZip(name)) {
-    return <FileZipOutlined />
+    return <FileZipOutlined onClick={() => unpackPathDispatch(joinSearchPath(name))} />
   }
 
   return <FileOutlined />
