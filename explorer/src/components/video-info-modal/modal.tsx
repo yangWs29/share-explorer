@@ -1,14 +1,16 @@
 'use client'
 import React from 'react'
-import { Card, Descriptions, Drawer, Space, Tabs } from 'antd'
+import { Button, Card, Descriptions, Drawer, Space, Tabs } from 'antd'
 import { map, isEmpty, isObject } from 'lodash'
-import { useRequest } from 'ahooks'
+import { useRequest, useUpdateEffect } from 'ahooks'
 import { VideoInfoContext } from '@/components/video-info-modal/video-info-context'
-import { getVideoInfoAction } from '@/components/video-info-modal/action'
+import { createVideoPreviewAction, getVideoInfoAction } from '@/components/video-info-modal/action'
+import { useFormStatus } from 'react-dom'
+import { useUpdateReaddirList } from '@/app/path/readdir-context'
 
 const VideoInfoItem: React.FC = () => {
   const video_path = VideoInfoContext.useStore()
-  const { data, loading, run } = useRequest(() => getVideoInfoAction(video_path))
+  const { data, loading } = useRequest(() => getVideoInfoAction(video_path))
 
   return (
     <Card loading={loading}>
@@ -44,6 +46,25 @@ const VideoInfoItem: React.FC = () => {
   )
 }
 
+const CreatePreviewBtn: React.FC = () => {
+  const { pending } = useFormStatus()
+  const { update } = useUpdateReaddirList()
+
+  useUpdateEffect(() => {
+    if (!pending) {
+      setTimeout(() => {
+        update()
+      }, 1000)
+    }
+  }, [pending])
+
+  return (
+    <Button loading={pending} htmlType="submit">
+      创建预览图
+    </Button>
+  )
+}
+
 const VideoInfoModal: React.FC = () => {
   const video_path = VideoInfoContext.useStore()
   const dispatch = VideoInfoContext.useDispatch()
@@ -57,6 +78,11 @@ const VideoInfoModal: React.FC = () => {
       onClose={() => dispatch('')}
       footer={false}
       destroyOnClose={true}
+      extra={
+        <form action={() => createVideoPreviewAction(video_path)}>
+          <CreatePreviewBtn />
+        </form>
+      }
     >
       <VideoInfoItem />
     </Drawer>
