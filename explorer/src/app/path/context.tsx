@@ -9,6 +9,7 @@ import { MovePathProvider } from '@/components/move-modal/move-path-context'
 import { RenameProvider } from '@/components/rename-modal/rename-context'
 import { DfProvider } from '@/components/df-context'
 import { UnpackPathProvider } from '@/components/unpack-modal/unpack-path-context'
+import { VideoInfoProvider } from '@/components/video-info-modal/video-info-context'
 
 export const PathContextProvider: React.FC<React.ProviderProps<ReaddirListType>> = ({ value, children }) => {
   return (
@@ -21,7 +22,9 @@ export const PathContextProvider: React.FC<React.ProviderProps<ReaddirListType>>
                 <MovePathProvider>
                   <RenameProvider>
                     <DfProvider>
-                      <UnpackPathProvider>{children}</UnpackPathProvider>
+                      <UnpackPathProvider>
+                        <VideoInfoProvider>{children}</VideoInfoProvider>
+                      </UnpackPathProvider>
                     </DfProvider>
                   </RenameProvider>
                 </MovePathProvider>

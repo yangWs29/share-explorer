@@ -7,11 +7,13 @@
   "keywords": [],
   "author": "",
   "devDependencies": {
+    "@types/ffprobe": "^1.1.8",
     "@types/node": "20.10.4",
     "@types/node-7z": "^2.1.8"
   },
   "dependencies": {
     "ext-name": "^5.0.0",
+    "ffprobe": "^1.1.2",
     "file-type": "^18.7.0",
     "fs-extra": "^11.2.0",
     "get-folder-size": "^4.0.0",
