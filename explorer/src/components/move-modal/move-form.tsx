@@ -1,5 +1,5 @@
 import React from 'react'
-import { Cascader, Flex, Form, Input, Select, Space, Switch } from 'antd'
+import { Flex, Form, Input, Select, Space, Switch } from 'antd'
 import SelectPathInput from '@/components/select-path-input'
 import { useMovePathStore } from '@/components/move-modal/move-path-context'
 import SubmitBtn from '@/components/submit-btn'
@@ -50,15 +50,6 @@ const MoveForm: React.FC<{ onFinish: (values: FieldType) => void }> = ({ onFinis
       </Form.Item>
       <Form.Item<FieldType> label="来源" name="path" rules={[{ required: true, message: '请输入来源' }]}>
         <Input disabled readOnly />
-      </Form.Item>
-
-      <Form.Item label="位置">
-        <Cascader
-          options={[]}
-          loadData={(selected) => {
-            console.log({ selected })
-          }}
-        />
       </Form.Item>
 
       <SelectPathInput
