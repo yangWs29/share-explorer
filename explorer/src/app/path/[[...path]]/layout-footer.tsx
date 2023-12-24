@@ -7,6 +7,7 @@ import ChangeColumn from '@/app/path/[[...path]]/change-column'
 import CreateFolderBtn from '@/components/create-folder-btn'
 import { DfDisplay } from '@/components/df-context'
 import { ReloadReaddirButton } from '@/components/reload-readdir-button'
+import ReaddirSort from '@/components/readdir-sort'
 
 const LayoutFooter: React.FC = () => {
   return (
@@ -31,6 +32,8 @@ const LayoutFooter: React.FC = () => {
         <Flex justify="flex-end" flex={1}>
           <Space>
             <ChangeColumn />
+
+            <ReaddirSort />
 
             <DisplayType />
           </Space>

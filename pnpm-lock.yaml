@@ -44,6 +44,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      natural-compare-lite:
+        specifier: ^1.4.0
+        version: 1.4.0
       next:
         specifier: 14.0.4
         version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
@@ -66,6 +69,9 @@ importers:
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
+      '@types/natural-compare-lite':
+        specifier: ^1.4.2
+        version: 1.4.2
       '@types/node':
         specifier: ^20
         version: 20.0.0
@@ -537,6 +543,10 @@ packages:
 
   /@types/lodash@4.14.202:
     resolution: {integrity: sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==}
+    dev: true
+
+  /@types/natural-compare-lite@1.4.2:
+    resolution: {integrity: sha512-kk1ie31cI6AUm17qOi72lEOBfpRhcknJPsJQoKBulaZC9y00MHUWqxGTk/luWEnenLB+lHoNThrKAKdYVydlew==}
     dev: true
 
   /@types/node-7z@2.1.8:
@@ -2383,6 +2393,10 @@ packages:
 
   /native-promise-only@0.8.1:
     resolution: {integrity: sha512-zkVhZUA3y8mbz652WrL5x0fB0ehrBkulWT3TomAQ9iDtyXZvzKeEA6GPxAItBYeNYl5yngKRX612qHOhvMkDeg==}
+    dev: false
+
+  /natural-compare-lite@1.4.0:
+    resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: false
 
   /natural-compare@1.4.0:

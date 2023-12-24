@@ -10,10 +10,11 @@ import { RenameProvider } from '@/components/rename-modal/rename-context'
 import { DfProvider } from '@/components/df-context'
 import { UnpackPathProvider } from '@/components/unpack-modal/unpack-path-context'
 import { VideoInfoProvider } from '@/components/video-info-modal/video-info-context'
+import { SortProvider } from '@/components/readdir-sort/sort-context'
 
 export const PathContextProvider: React.FC<React.ProviderProps<ReaddirListType>> = ({ value, children }) => {
   return (
-    <>
+    <SortProvider>
       <ReaddirProvider value={value}>
         <CardColumnProvider>
           <DisplayTypeProvider>
@@ -33,6 +34,6 @@ export const PathContextProvider: React.FC<React.ProviderProps<ReaddirListType>>
           </DisplayTypeProvider>
         </CardColumnProvider>
       </ReaddirProvider>
-    </>
+    </SortProvider>
   )
 }

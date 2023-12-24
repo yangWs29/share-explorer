@@ -6,6 +6,7 @@ import { useReplacePathname } from '@/components/use-replace-pathname'
 import { useRouter } from 'next/navigation'
 import axios, { AxiosRequestConfig } from 'axios'
 import { useRequest } from 'ahooks'
+import { sortMap, useSortStore } from '@/components/readdir-sort/sort-context'
 
 export const axiosGetReaddir = (opt: AxiosRequestConfig<ReaddirListType>) =>
   axios.get<{ readdir: ReaddirListType }>('/path/api/readdir', opt)
@@ -23,7 +24,10 @@ export const useGetReaddir = () => {
 const ReaddirContext = createCtx<ReaddirListType>()
 
 export const useReaddirContext = () => {
-  return ReaddirContext.useStore()
+  const readdir_list = ReaddirContext.useStore()
+  const sort = useSortStore()
+
+  return readdir_list.sort(sortMap[sort])
 }
 
 export const useDeleteReaddirItem = () => {
