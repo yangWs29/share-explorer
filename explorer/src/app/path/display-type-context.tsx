@@ -1,6 +1,7 @@
 'use client'
 import createCtx from '@/lib/create-ctx'
 import React from 'react'
+import { setDisplayTypeCookie } from '@/app/path/actions'
 
 export type DisplayType = 'card' | 'table'
 
@@ -11,9 +12,14 @@ export const useDisplayTypeContext = () => {
 }
 
 export const useDisplayTypeContextDispatch = () => {
-  return DisplayTypeContext.useDispatch()
+  const dispatch = DisplayTypeContext.useDispatch()
+
+  return (display_type: DisplayType) => {
+    dispatch(display_type)
+    setDisplayTypeCookie(display_type)
+  }
 }
 
-export const DisplayTypeProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-  return <DisplayTypeContext.ContextProvider value={'card'}>{children}</DisplayTypeContext.ContextProvider>
+export const DisplayTypeProvider: React.FC<React.ProviderProps<DisplayType>> = ({ value = 'card', children }) => {
+  return <DisplayTypeContext.ContextProvider value={value}>{children}</DisplayTypeContext.ContextProvider>
 }

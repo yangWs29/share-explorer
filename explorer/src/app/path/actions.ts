@@ -4,6 +4,8 @@ import { ReaddirListType, ReaddirOptType } from '@/explorer-manager/src/type'
 import { cookies } from 'next/headers'
 import { SortType } from '@/components/readdir-sort/sort-context'
 import { sortMap } from '@/components/readdir-sort/sort'
+import { revalidatePath } from 'next/cache'
+import { card_column_cookie_key, display_type_cookie_key } from '@/app/path/conf'
 
 export type ActionResType = { message: string; status: 'error' | 'ok' | string }
 
@@ -19,4 +21,16 @@ export const readdirAction: (opt: ReaddirOptType) => Promise<ReaddirListType> = 
   const { path, only_dir, only_file, has_file_stat } = opt
 
   return readdir(path, { only_dir, only_file, has_file_stat }).sort(sortMap[sort])
+}
+
+export const setCardColumnCookie = (column: number) => {
+  cookies().set(card_column_cookie_key, String(column))
+
+  revalidatePath('/path')
+}
+
+export const setDisplayTypeCookie = (display_type: string) => {
+  cookies().set(display_type_cookie_key, display_type)
+
+  revalidatePath('/path')
 }
