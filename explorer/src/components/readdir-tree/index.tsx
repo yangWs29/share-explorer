@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { isEmpty } from 'lodash'
 import { FolderOpenOutlined, FolderOutlined, LoadingOutlined, MinusOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
-import { axiosGetReaddir } from '@/app/path/readdir-context'
+import { readdirAction } from '@/app/path/actions'
 
 export const LiStyle = styled.li``
 
@@ -22,15 +22,11 @@ const SelectPathInputContext = React.createContext<{ onSelect?: OnSelectType; hi
 const useReaddirRequest = (
   { manual, init_path }: { manual: boolean; init_path: string } = { manual: false, init_path: '' },
 ) => {
-  return useRequest(
-    (path: string = init_path) =>
-      axiosGetReaddir({
-        params: { path: path, only_dir: 1 },
-      }).then(({ data: { readdir } }) => {
-        return readdir
-      }),
-    { manual, cacheKey: init_path ? init_path : undefined, staleTime: 5000 },
-  )
+  return useRequest((path: string = init_path) => readdirAction({ path: path, only_dir: '1' }), {
+    manual,
+    cacheKey: init_path ? init_path : undefined,
+    staleTime: 5000,
+  })
 }
 
 const EmptyItem: React.FC<React.PropsWithChildren> = ({ children }) => {

@@ -1,5 +1,13 @@
 import { Stats } from 'fs'
 
+export type ReaddirOptType = {
+  path: string
+  only_dir?: '0' | '1'
+  only_file?: '0' | '1'
+  show_hide?: '0' | '1'
+  has_file_stat?: '0' | '1'
+}
+
 export type ReaddirItemType = { is_directory: boolean; name: string; stat?: Stats }
 
 export type ReaddirListType = ReaddirItemType[]

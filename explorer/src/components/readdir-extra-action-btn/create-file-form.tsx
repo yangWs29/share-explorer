@@ -2,7 +2,7 @@
 import React from 'react'
 import { App, Flex, Form, Input } from 'antd'
 import SubmitBtn from '@/components/submit-btn'
-import { createFile } from '@/components/readdir-extra-action-btn/action'
+import { createFileAction } from '@/components/readdir-extra-action-btn/action'
 import { useUpdateReaddirList } from '@/app/path/readdir-context'
 import { useReplacePathname } from '@/components/use-replace-pathname'
 
@@ -22,7 +22,7 @@ const CreateFileForm: React.FC = () => {
       onFinish={(values) => {
         const { file_name } = values
 
-        createFile([replace_pathname, file_name].join('/'))
+        createFileAction([replace_pathname, file_name].join('/'))
           .then(({ status, message }) => {
             if (status === 'error') {
               return Promise.reject({ status, message })

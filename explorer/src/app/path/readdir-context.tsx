@@ -4,21 +4,14 @@ import { ReaddirListType } from '@/explorer-manager/src/type'
 import React from 'react'
 import { useReplacePathname } from '@/components/use-replace-pathname'
 import { useRouter } from 'next/navigation'
-import axios, { AxiosRequestConfig } from 'axios'
 import { useRequest } from 'ahooks'
 import { sortMap, useSortStore } from '@/components/readdir-sort/sort-context'
-
-export const axiosGetReaddir = (opt: AxiosRequestConfig<ReaddirListType>) =>
-  axios.get<{ readdir: ReaddirListType }>('/path/api/readdir', opt)
+import { readdirAction } from '@/app/path/actions'
 
 export const useGetReaddir = () => {
-  return useRequest(
-    (path: string) =>
-      axiosGetReaddir({
-        params: { path, only_dir: '0', only_file: '0', has_file_stat: '1' },
-      }).then(({ data }) => data),
-    { manual: true },
-  )
+  return useRequest((path: string) => readdirAction({ path, only_dir: '0', only_file: '0', has_file_stat: '1' }), {
+    manual: true,
+  })
 }
 
 const ReaddirContext = createCtx<ReaddirListType>()
@@ -51,7 +44,7 @@ export const useUpdateReaddirList = () => {
     update: () => {
       runAsync(replace_pathname).then((data) => {
         router.refresh()
-        changeReaddirList(data.readdir)
+        changeReaddirList(data)
       })
     },
   }

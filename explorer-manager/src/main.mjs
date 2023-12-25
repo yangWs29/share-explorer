@@ -108,7 +108,7 @@ export const fsStream = (path = '.', option = {}) => {
   }
 }
 
-export const deleteAction = async (path = '') => {
+export const deleteDir = async (path = '') => {
   const delete_path = formatPath(path)
   const is_exist = fs.existsSync(delete_path)
 
@@ -121,23 +121,28 @@ export const deleteAction = async (path = '') => {
   }
 }
 
-export const moveAction = async (src, dest) => {
+export const move = async (src, dest) => {
   return moveSync(formatPath(src), formatPath(dest), { overwrite: false })
 }
 
-export const renameAction = (old_path, new_path) => {
+export const rename = (old_path, new_path) => {
   return fs.renameSync(formatPath(old_path), formatPath(new_path))
 }
 
-export const createFolderAction = (path) => {
+export const createFolder = (path) => {
   return fs.mkdirSync(formatPath(path))
 }
 
-export const getFolderSizeAction = async (path) => {
+/**
+ *
+ * @param path
+ * @returns {Promise<number|bigint>}
+ */
+export const getFolderSizeLoose = async (path) => {
   return await getFolderSize.loose(formatPath(path))
 }
 
-export const createFileAction = (path) => {
+export const createFile = (path) => {
   return fs.writeFileSync(formatPath(path), '')
 }
 

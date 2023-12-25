@@ -1,5 +1,5 @@
 'use server'
-import { renameAction as fsRenameAction } from '@/explorer-manager/src/main.mjs'
+import { rename } from '@/explorer-manager/src/main.mjs'
 
 export type FieldType = {
   dir_path: string
@@ -13,7 +13,7 @@ export const renameAction: (form_data: FieldType) => Promise<{ status: 'ok' | 'e
   const { dir_path, old_path, new_path } = form_data
 
   try {
-    fsRenameAction([dir_path, old_path].join('/'), [dir_path, new_path].join('/'))
+    rename([dir_path, old_path].join('/'), [dir_path, new_path].join('/'))
     return Promise.resolve({ status: 'ok', message: 'done' })
   } catch (err: any) {
     return Promise.resolve({ status: 'error', message: JSON.stringify(err?.message) })

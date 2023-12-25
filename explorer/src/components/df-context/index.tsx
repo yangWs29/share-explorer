@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation'
 import Bit from '@/components/bit'
 import { Space } from 'antd'
 import { useReplacePathname } from '@/components/use-replace-pathname'
+import { findDfInfoAction } from '@/components/df-context/action'
 
 export const DfContext = createCtx<DfResItemType | null>(null!)
 
@@ -15,11 +16,7 @@ const UpdateDfInfo: React.FC = () => {
   const pathname = usePathname()
   const { replace_pathname } = useReplacePathname()
   const dispatch = DfContext.useDispatch()
-  const { data = null } = useRequest(() =>
-    axios
-      .get<{ data: DfResItemType }>('/path/api/get-df', { params: { path: replace_pathname } })
-      .then(({ data }) => data.data),
-  )
+  const { data = null } = useRequest(() => findDfInfoAction(replace_pathname))
 
   useEffect(() => {
     dispatch(data)

@@ -18,6 +18,11 @@ export const getDF = async (opt = {}) => {
   })
 }
 
+/**
+ *
+ * @param path
+ * @returns {Promise<import('./type').DfResItemType>}
+ */
 export const findDfInfo = async (path = '') => {
   const info = await getDF()
   const join_path = formatPath(path)
