@@ -2,7 +2,7 @@
 import React from 'react'
 import { App, Flex, Form, Input } from 'antd'
 import SubmitBtn from '@/components/submit-btn'
-import { createFolder } from '@/components/create-folder-btn/action'
+import { createFolder } from '@/components/readdir-extra-action-btn/action'
 import { useUpdateReaddirList } from '@/app/path/readdir-context'
 import { useReplacePathname } from '@/components/use-replace-pathname'
 
@@ -42,7 +42,7 @@ const CreateFolderForm: React.FC = () => {
 
       <Form.Item>
         <Flex justify="flex-end">
-          <SubmitBtn>确定</SubmitBtn>
+          <SubmitBtn>创建</SubmitBtn>
         </Flex>
       </Form.Item>
     </Form>

@@ -136,3 +136,15 @@ export const createFolderAction = (path) => {
 export const getFolderSizeAction = async (path) => {
   return await getFolderSize.loose(formatPath(path))
 }
+
+export const createFileAction = (path) => {
+  return fs.writeFileSync(formatPath(path), '')
+}
+
+export const getFileContent = (path) => {
+  return fs.readFileSync(formatPath(path), 'utf-8')
+}
+
+export const writeFile = (path, content = '') => {
+  return fs.writeFileSync(formatPath(path), content)
+}

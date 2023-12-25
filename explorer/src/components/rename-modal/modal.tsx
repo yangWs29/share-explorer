@@ -11,9 +11,9 @@ const MoveModal: React.FC = () => {
 
   return (
     <Modal
-      title="移动"
+      title="重命名"
       open={!isEmpty(rename_old_path.path)}
-      width={1000}
+      width="75%"
       onCancel={() => renameDispatch('')}
       footer={false}
       destroyOnClose={true}

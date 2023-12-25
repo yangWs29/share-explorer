@@ -81,7 +81,7 @@ const UnpackModal: React.FC = () => {
     <Modal
       title="解压缩"
       open={!isEmpty(unpack_path)}
-      width={1000}
+      width="75%"
       onCancel={() => changeUnpackPath('')}
       footer={false}
       destroyOnClose={true}

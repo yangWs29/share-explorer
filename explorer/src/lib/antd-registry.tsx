@@ -1,24 +1,39 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs'
 import { useServerInsertedHTML } from 'next/navigation'
 import { App, ConfigProvider, Layout, theme } from 'antd'
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import 'antd/dist/reset.css'
 
 const cache = createCache()
 
 const AntdStyledComponentsRegistry: React.FC<React.PropsWithChildren> = ({ children }) => {
   const isServerInserted = React.useRef<boolean>(false)
+  const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet())
+
   useServerInsertedHTML(() => {
+    const styles = styledComponentsStyleSheet.getStyleElement()
+    styledComponentsStyleSheet.instance.clearTag()
+
     // 避免 css 重复插入
     if (isServerInserted.current) {
       return
     }
     isServerInserted.current = true
-    return <style id="antd" dangerouslySetInnerHTML={{ __html: extractStyle(cache, true) }} />
+    return (
+      <>
+        <style id="antd" dangerouslySetInnerHTML={{ __html: extractStyle(cache, true) }} />
+        {styles}
+      </>
+    )
   })
 
-  return <StyleProvider cache={cache}>{children}</StyleProvider>
+  return (
+    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+      <StyleProvider cache={cache}>{children}</StyleProvider>
+    </StyleSheetManager>
+  )
 }
 
 const AntdConfigProvider: React.FC<React.PropsWithChildren> = ({ children }) => {

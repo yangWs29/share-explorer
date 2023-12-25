@@ -11,6 +11,7 @@ import { DfProvider } from '@/components/df-context'
 import { UnpackPathProvider } from '@/components/unpack-modal/unpack-path-context'
 import { VideoInfoProvider } from '@/components/video-info-modal/video-info-context'
 import { SortProvider } from '@/components/readdir-sort/sort-context'
+import { EditFileProvider } from '@/components/edit-file/edit-file-context'
 
 export const PathContextProvider: React.FC<React.ProviderProps<ReaddirListType>> = ({ value, children }) => {
   return (
@@ -24,7 +25,9 @@ export const PathContextProvider: React.FC<React.ProviderProps<ReaddirListType>>
                   <RenameProvider>
                     <DfProvider>
                       <UnpackPathProvider>
-                        <VideoInfoProvider>{children}</VideoInfoProvider>
+                        <VideoInfoProvider>
+                          <EditFileProvider>{children}</EditFileProvider>
+                        </VideoInfoProvider>
                       </UnpackPathProvider>
                     </DfProvider>
                   </RenameProvider>

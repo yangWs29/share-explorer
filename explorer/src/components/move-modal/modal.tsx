@@ -56,7 +56,7 @@ const MoveModal: React.FC = () => {
     <Modal
       title="移动"
       open={!isEmpty(move_path)}
-      width={1000}
+      width="75%"
       onCancel={() => changeMovePath('')}
       footer={false}
       destroyOnClose={true}
