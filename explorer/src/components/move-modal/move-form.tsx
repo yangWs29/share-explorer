@@ -15,6 +15,7 @@ export type FieldType = {
   last: string
   move_type: 'move' | 'rsync'
   rsync_delete_source: boolean
+  test: boolean
 }
 
 const options = [
@@ -32,7 +33,7 @@ const MoveForm: React.FC<{ onFinish: (values: FieldType) => void }> = ({ onFinis
   return (
     <Form<FieldType>
       form={form}
-      labelCol={{ span: 3 }}
+      labelCol={{ span: 4 }}
       initialValues={{
         remember: true,
         path: move_path,
@@ -74,6 +75,12 @@ const MoveForm: React.FC<{ onFinish: (values: FieldType) => void }> = ({ onFinis
 
       {move_type === 'rsync' && (
         <Form.Item<FieldType> label="删除源文件" name="rsync_delete_source">
+          <Switch />
+        </Form.Item>
+      )}
+
+      {move_type === 'rsync' && (
+        <Form.Item<FieldType> label="测试" name="test">
           <Switch />
         </Form.Item>
       )}

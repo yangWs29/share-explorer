@@ -17,7 +17,7 @@ const MoveModal: React.FC = () => {
 
   const rsyncMove = useRequest(
     async (values: FieldType) => {
-      const { path, new_path, last, rsync_delete_source } = values
+      const { path, new_path, last, rsync_delete_source, test } = values
 
       const res = await fetch('/path/api/rsync-move', {
         method: 'post',
@@ -25,6 +25,7 @@ const MoveModal: React.FC = () => {
           path: path,
           out_path: [new_path, last].join('/'),
           rsync_delete_source: rsync_delete_source,
+          test,
         }),
       })
 
