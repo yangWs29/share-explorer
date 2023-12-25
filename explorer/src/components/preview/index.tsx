@@ -19,7 +19,7 @@ export const ItemStyle = styled(Link)`
   align-items: center;
   justify-content: center;
 
-  & > .preview-item {
+  & > div {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -70,7 +70,7 @@ const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
   const previewGroupDispatch = usePreviewGroupDispatch()
   const videoPathDispatch = useVideoPathDispatch()
   const { name, is_directory } = item
-  const { staticPath, joinSearchPath, joinPath } = useReplacePathname()
+  const { staticPath, joinSearchPath } = useReplacePathname()
   const unpackPathDispatch = useUnpackPathDispatch()
   const editFileDispatch = EditFileContext.useDispatch()
 
@@ -137,7 +137,7 @@ const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
   )
 }
 
-export default (props: React.ComponentProps<typeof Preview>) => {
+const InjectItemStyle = (props: React.ComponentProps<typeof Preview>) => {
   const { joinPath } = useReplacePathname()
   const { item } = props
 
@@ -155,3 +155,4 @@ export default (props: React.ComponentProps<typeof Preview>) => {
     </ItemStyle>
   )
 }
+export default InjectItemStyle

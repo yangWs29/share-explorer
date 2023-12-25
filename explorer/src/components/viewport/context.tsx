@@ -1,5 +1,5 @@
 'use client'
-import React, { createContext, useCallback, useContext } from 'react'
+import React, { createContext, useContext } from 'react'
 import { useCookieState, useMount } from 'ahooks'
 
 export type ViewportType = {
@@ -21,13 +21,13 @@ export const useViewport = () => {
 export const ViewportProvider: React.FC<React.ProviderProps<ViewportType>> = ({ value, children }) => {
   const [cookie_viewport, changeCookieViewport] = useCookieState('viewport-size')
 
-  const handleResize = useCallback(() => {
-    const { width, height } = getWindowSize()
-
-    changeCookieViewport(JSON.stringify({ width, height }))
-  }, [])
-
   useMount(() => {
+    const handleResize = () => {
+      const { width, height } = getWindowSize()
+
+      changeCookieViewport(JSON.stringify({ width, height }))
+    }
+
     handleResize()
 
     window.addEventListener('resize', handleResize)
