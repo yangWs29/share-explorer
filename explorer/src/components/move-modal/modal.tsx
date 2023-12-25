@@ -38,7 +38,7 @@ const MoveModal: React.FC = () => {
 
           const decode_value = decode.decode(value)
 
-          !isEmpty(decode_value) && changeChunk((chunk) => chunk.concat(decode_value).reverse())
+          !isEmpty(decode_value) && changeChunk((chunk) => [decode_value, ...chunk])
 
           if (done) {
             break
