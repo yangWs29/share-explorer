@@ -26,7 +26,7 @@ export const FolderSizeBtn: React.FC<{ path: string }> = ({ path }) => {
       {show ? (
         <FolderSize path={path} title={null} />
       ) : (
-        <Button icon={<ReloadOutlined />} onClick={() => changeShow(true)} />
+        <Button type="text" icon={<ReloadOutlined />} onClick={() => changeShow(true)} />
       )}
     </>
   )
