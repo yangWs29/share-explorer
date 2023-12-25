@@ -4,7 +4,7 @@ import { Button, Dropdown } from 'antd'
 import { SortAscendingOutlined, SortDescendingOutlined } from '@ant-design/icons'
 import { useSortDispatch, useSortStore } from '@/components/readdir-sort/sort-context'
 
-const ReaddirSort: React.FC = () => {
+const ReaddirSortDropdown: React.FC = () => {
   const sort = useSortStore()
   const sortDispatch = useSortDispatch()
 
@@ -56,4 +56,4 @@ const ReaddirSort: React.FC = () => {
   )
 }
 
-export default ReaddirSort
+export default ReaddirSortDropdown

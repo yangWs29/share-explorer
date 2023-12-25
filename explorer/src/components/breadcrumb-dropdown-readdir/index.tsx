@@ -20,10 +20,13 @@ const ScrollIntoView: React.FC<{ is_open: boolean; className?: string }> = ({ is
 const ReaddirMenu: React.FC<{ href: string }> = ({ href }) => {
   const pathname = usePathname() || ''
 
-  const { data = [], loading } = useRequest(() => readdirAction({ path: href.replace(pathExp, ''), only_dir: '1' }), {
-    cacheKey: `readdir-${href}`,
-    staleTime: 60 * 1000,
-  })
+  const { data = [], loading } = useRequest(
+    () => readdirAction({ path: href.replace(pathExp, ''), only_dir: '1', has_file_stat: '1' }),
+    {
+      cacheKey: `readdir-${href}`,
+      staleTime: 60 * 1000,
+    },
+  )
 
   const open_dit_text = decodeURIComponent(pathname).split(href).pop()?.split('/').filter(Boolean).shift() || ''
 

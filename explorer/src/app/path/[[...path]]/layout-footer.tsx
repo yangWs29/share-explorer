@@ -6,7 +6,7 @@ import DisplayType from '@/components/display-type'
 import ChangeColumn from '@/app/path/[[...path]]/change-column'
 import ReaddirExtraActionBtn from '../../../components/readdir-extra-action-btn'
 import { DfDisplay } from '@/components/df-context'
-import ReaddirSort from '@/components/readdir-sort'
+import ReaddirSortDropdown from '@/components/readdir-sort/readdir-sort-dropdown'
 
 const LayoutFooter: React.FC = () => {
   return (
@@ -28,7 +28,7 @@ const LayoutFooter: React.FC = () => {
           <Space>
             <ChangeColumn />
 
-            <ReaddirSort />
+            <ReaddirSortDropdown />
 
             <DisplayType />
           </Space>
