@@ -40,7 +40,7 @@ const TextStyle = styled.span`
   position: absolute;
   font-weight: bolder;
   color: inherit;
-  padding: 5px 12px;
+  padding: 8px 15px;
 `
 
 const FileExtra: React.FC<{ name: string } & React.PropsWithChildren & React.ComponentProps<typeof Item>> = ({
@@ -84,9 +84,9 @@ const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
 
   if (isVideo(name)) {
     return (
-      <Item onClick={() => videoPathDispatch(staticPath(name))}>
+      <FileExtra name={name} onClick={() => videoPathDispatch(staticPath(name))}>
         <VideoCameraOutlined />
-      </Item>
+      </FileExtra>
     )
   }
 
