@@ -99,7 +99,7 @@ const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
         src={image_path}
         alt={name}
         fill
-        sizes="375px"
+        sizes="384px"
         style={{
           objectFit: 'scale-down', //"contain" | "cover" | "fill" | "none" | "scale-down"
         }}
