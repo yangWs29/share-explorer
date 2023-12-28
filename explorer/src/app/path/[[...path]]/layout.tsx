@@ -1,6 +1,6 @@
 import React from 'react'
 import { readdir } from '@/explorer-manager/src/main.mjs'
-import { PathContextProvider } from '@/app/path/context'
+import { PathContextProvider } from '@/app/path/[[...path]]/context'
 import LayoutFooter from '@/app/path/[[...path]]/layout-footer'
 import LayoutContent from '@/app/path/[[...path]]/layout-content'
 
