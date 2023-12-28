@@ -8,8 +8,14 @@ RUN apk add --no-cache libc6-compat
 RUN apk add --no-cache ffmpeg
 RUN apk add --no-cache rsync
 
+FROM base AS deps-node-pty
+
+# node-pty install
+RUN apk add --no-cache g++ make py3-pip
+
+
 # Install dependencies only when needed
-FROM base AS deps
+FROM deps-node-pty AS deps
 
 WORKDIR /app
 
