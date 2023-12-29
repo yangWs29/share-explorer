@@ -6,8 +6,12 @@ import Player from 'video.js/dist/types/player'
 import styled from 'styled-components'
 
 const VideoMain = styled.div`
+  height: 100%;
+  width: 100%;
+
   .video-js {
-    padding-top: 70% !important;
+    height: 100% !important;
+    padding: 0 !important;
   }
 `
 
@@ -83,11 +87,7 @@ export const VideoJS: React.FC<{ options: any; onReady: (player: Player) => void
     }
   }, [player_ref])
 
-  return (
-    <div data-vjs-player={true}>
-      <VideoMain ref={video_ref} />
-    </div>
-  )
+  return <VideoMain ref={video_ref} />
 }
 
 export default VideoJS
