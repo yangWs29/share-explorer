@@ -10,9 +10,10 @@ const encoder = new TextEncoder()
 
 async function* makeIterator() {
   let length = 0
-  while (length > 60 * 10) {
-    await sleep(1000)
+
+  while (length < 60 * 10) {
     yield encoder.encode(`<p>${length} ${new Date().toLocaleString()}</p>`)
+    await sleep(1000)
 
     length += 1
   }
@@ -26,6 +27,6 @@ export async function POST() {
 
 export async function GET() {
   return new Response(iteratorToStream(nodeStreamToIterator(makeIterator())), {
-    headers: { 'Content-Type': 'html' },
+    headers: { 'Content-Type': 'text/html' },
   })
 }
