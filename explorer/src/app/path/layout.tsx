@@ -3,6 +3,7 @@ import ExplorerBreadcrumb from '@/components/explorer-breadcrumb'
 import { Card, Space } from 'antd'
 import { TerminalProvider } from '@/components/terminal/terminal-context'
 import ShowTerminalBtn from '@/components/terminal/show-terminal-btn'
+import ChangeThemeDropdown from '@/components/change-theme/change-theme-dropdown'
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
@@ -13,6 +14,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
         extra={
           <Space>
             <ShowTerminalBtn />
+            <ChangeThemeDropdown />
           </Space>
         }
         style={{ height: '100%', display: 'flex', flexDirection: 'column' }}

@@ -5,6 +5,7 @@ import React from 'react'
 import AntdStyledComponentsRegistry from '@/lib/antd-registry'
 import Viewport from '@/components/viewport'
 import StyledComponentsRegistry from '@/lib/styled-components-registry'
+import InjectCookieChangeThemeProvider from '@/components/change-theme/inject-cookie'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,11 +17,13 @@ export const metadata: Metadata = {
 const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => (
   <html lang="en">
     <body className={inter.className}>
-      <StyledComponentsRegistry>
-        <AntdStyledComponentsRegistry>
-          <Viewport>{children}</Viewport>
-        </AntdStyledComponentsRegistry>
-      </StyledComponentsRegistry>
+      <InjectCookieChangeThemeProvider>
+        <StyledComponentsRegistry>
+          <AntdStyledComponentsRegistry>
+            <Viewport>{children}</Viewport>
+          </AntdStyledComponentsRegistry>
+        </StyledComponentsRegistry>
+      </InjectCookieChangeThemeProvider>
     </body>
   </html>
 )
