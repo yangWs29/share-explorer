@@ -1,12 +1,20 @@
 'use client'
 import React from 'react'
-import { Space, Table } from 'antd'
+import { Button, Space, Table } from 'antd'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { FileOutlined, FolderOutlined } from '@ant-design/icons'
 import Bit from '@/components/bit'
 import DateFormat from '@/components/date-format'
 import { useReaddirContext } from '@/app/path/readdir-context'
+import Preview from '@/components/preview'
+import styled from 'styled-components'
+import ActionDropdown from '@/components/action-dropdown'
+import naturalCompare from 'natural-compare-lite'
+
+const PreviewItemStyle = styled.div`
+  position: relative;
+  width: 150px;
+`
 
 const TableDisplay: React.FC = () => {
   const pathname = usePathname()
@@ -15,15 +23,19 @@ const TableDisplay: React.FC = () => {
   return (
     <Table
       rowKey={'name'}
+      pagination={false}
       columns={[
         {
           title: '文件名',
           dataIndex: 'name',
           key: 'name',
+          sorter: (a, b) => naturalCompare(a.name, b.name),
           render: (name, item) => {
             return (
               <Space>
-                {item.is_directory ? <FolderOutlined /> : <FileOutlined />}
+                <PreviewItemStyle>
+                  <Preview item={item} />
+                </PreviewItemStyle>
                 <Link
                   href={item.is_directory ? `${pathname}/${encodeURIComponent(name)}` : `${pathname}`}
                   prefetch={false}
@@ -50,6 +62,17 @@ const TableDisplay: React.FC = () => {
           sorter: (a, b) => (a?.stat?.mtimeMs ?? 0) - (b?.stat?.mtimeMs ?? 0),
           render: (time) => {
             return <DateFormat>{time}</DateFormat>
+          },
+        },
+        {
+          title: '操作',
+          width: 100,
+          render: (item) => {
+            return (
+              <ActionDropdown item={item}>
+                <Button type="text">操作</Button>
+              </ActionDropdown>
+            )
           },
         },
       ]}
