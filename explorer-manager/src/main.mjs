@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { fileTypeFromFile } from 'file-type'
-import { formatPath } from './format-path.mjs'
+import { formatPath, isInnerBaseExplorer } from './format-path.mjs'
 import extName from 'ext-name'
 import fsExtra from 'fs-extra'
 import getFolderSize from 'get-folder-size'
@@ -113,7 +113,7 @@ export const deleteDir = async (path = '') => {
   const is_exist = fs.existsSync(delete_path)
 
   if (is_exist) {
-    if (['/', process.env.HOME, `${process.env.HOME}/`].includes(delete_path)) {
+    if (isInnerBaseExplorer(delete_path)) {
       return false
     }
 
