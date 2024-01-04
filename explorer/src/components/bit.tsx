@@ -4,11 +4,12 @@ import { FileExclamationOutlined } from '@ant-design/icons'
 
 const unit_type_list = ['Byte', 'KiB', 'MiB', 'GiB', 'TiB']
 
-const Bit: React.FC<{ title?: React.ReactNode; icon?: boolean; children: React.ReactNode }> = ({
-  title,
-  children,
-  icon = false,
-}) => {
+const Bit: React.FC<{
+  title?: React.ReactNode
+  icon?: boolean
+  after?: React.ReactNode
+  children: React.ReactNode
+}> = ({ title, children, icon = false, after }) => {
   let size = Number(children)
   let run = true
   let unit_level = 0
@@ -29,9 +30,10 @@ const Bit: React.FC<{ title?: React.ReactNode; icon?: boolean; children: React.R
       {size ? (
         <span>
           {size.toFixed(unit_level === 0 ? 0 : 2)} {unit_type_list[unit_level]}
+          {after}
         </span>
       ) : (
-        '-'
+        <>-{after}</>
       )}
     </Space>
   )
