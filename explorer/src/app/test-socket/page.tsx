@@ -1,41 +1,38 @@
 'use client'
-import React, { useRef, useState } from 'react'
-import { useMount } from 'ahooks'
-import { io, Socket } from 'socket.io-client'
-import { Button } from 'antd'
+import React, { useState } from 'react'
+import { useRequest } from 'ahooks'
 
-const TestSocket: React.FC = () => {
-  const [message, changeMessage] = useState<string[]>([])
-  const socket_ref = useRef<Socket>()
+const Page: React.FC = () => {
+  const [text, changeText] = useState<string[]>([])
 
-  useMount(() => {
-    const s_io = io({ path: '/api/hello', addTrailingSlash: true })
+  useRequest(async () => {
+    const res = await fetch('/test/stream-api/', { method: 'post' })
 
-    socket_ref.current = s_io
+    if (res.body) {
+      const reader = res.body.getReader()
+      const decode = new TextDecoder()
 
-    s_io.on('message', (msg) => {
-      changeMessage((message) => {
-        return [msg, ...message]
-      })
-    })
+      while (true) {
+        const { done, value } = await reader.read()
+
+        changeText((text) => {
+          return [...text, decode.decode(value)]
+        })
+
+        if (done) {
+          break
+        }
+      }
+    }
   })
 
   return (
-    <>
-      <Button
-        onClick={() => {
-          socket_ref.current?.emit('message', Date.now())
-        }}
-      >
-        发送
-      </Button>
-      <ul>
-        {message.map((text, key) => (
-          <li key={key}>{text}</li>
-        ))}
-      </ul>
-    </>
+    <ul>
+      {text.map((text) => (
+        <li key={text}>{text}</li>
+      ))}
+    </ul>
   )
 }
 
-export default TestSocket
+export default Page
