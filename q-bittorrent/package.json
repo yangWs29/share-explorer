@@ -1,0 +1,13 @@
+{
+  "name": "q-bittorrent",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.mjs",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ctrl/qbittorrent": "^7.1.2"
+  }
+}

@@ -1,7 +1,7 @@
 'use client'
 import createCtx from '@/lib/create-ctx'
 import React from 'react'
-import type { Torrent } from '@ctrl/qbittorrent/dist/src/types'
+import type { Torrent } from '@/q-bittorrent/src/types'
 
 export const QBittorrentContext = createCtx<Torrent[]>()
 

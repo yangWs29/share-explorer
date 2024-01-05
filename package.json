@@ -13,7 +13,8 @@
   },
   "workspaces": [
     "explorer",
-    "explorer-manager"
+    "explorer-manager",
+    "q-bittorrent"
   ],
   "keywords": [],
   "author": "",

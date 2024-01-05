@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/explorer-manager/*": ["../explorer-manager/*"]
+      "@/explorer-manager/*": ["../explorer-manager/*"],
+      "@/q-bittorrent/*": ["../q-bittorrent/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

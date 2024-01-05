@@ -23,12 +23,6 @@ importers:
       '@ant-design/static-style-extract':
         specifier: ^1.0.2
         version: 1.0.2(antd@5.12.1)(react-dom@18.2.0)(react@18.2.0)
-      '@ctrl/qbittorrent':
-        specifier: ^7.1.2
-        version: 7.1.2
-      '@ctrl/shared-torrent':
-        specifier: ^5.0.0
-        version: 5.0.0
       '@uiw/react-codemirror':
         specifier: ^4.21.21
         version: 4.21.21(@babel/runtime@7.23.5)(@codemirror/autocomplete@6.11.1)(@codemirror/language@6.9.3)(@codemirror/lint@6.4.2)(@codemirror/search@6.5.5)(@codemirror/state@6.3.3)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.22.3)(codemirror@6.0.1)(react-dom@18.2.0)(react@18.2.0)
@@ -154,6 +148,12 @@ importers:
       '@types/node-7z':
         specifier: ^2.1.8
         version: 2.1.8
+
+  q-bittorrent:
+    dependencies:
+      '@ctrl/qbittorrent':
+        specifier: ^7.1.2
+        version: 7.1.2
 
 packages:
 

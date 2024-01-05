@@ -1,3 +1,4 @@
 packages:
   - "explorer"
   - "explorer-manager"
+  - "q-bittorrent"
