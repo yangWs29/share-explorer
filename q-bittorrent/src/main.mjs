@@ -1,5 +1,4 @@
 import { QBittorrent } from '@ctrl/qbittorrent'
-import { FormData } from 'node-fetch-native'
 
 export const client = new QBittorrent({
   baseUrl: process.env.Q_BITTORRENT_BASE_URL,
