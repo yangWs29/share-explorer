@@ -2,3 +2,4 @@ packages:
   - "explorer"
   - "explorer-manager"
   - "q-bittorrent"
+  - "rss-parse"

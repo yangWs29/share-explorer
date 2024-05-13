@@ -21,7 +21,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/explorer-manager/*": ["../explorer-manager/*"],
-      "@/q-bittorrent/*": ["../q-bittorrent/*"]
+      "@/q-bittorrent/*": ["../q-bittorrent/*"],
+      "@/rss-parse/*": ["../rss-parse/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

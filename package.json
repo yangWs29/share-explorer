@@ -14,7 +14,8 @@
   "workspaces": [
     "explorer",
     "explorer-manager",
-    "q-bittorrent"
+    "q-bittorrent",
+    "rss-parse"
   ],
   "keywords": [],
   "author": "",

@@ -1,6 +1,6 @@
 'use client'
 import { useRequest } from 'ahooks'
-import { getTransferInfoAction } from '@/app/q-bittorrent/actions'
+import { getSyncMainDataAction, getTransferInfoAction } from '@/app/q-bittorrent/actions'
 
 export const useGetTransferInfo = () => {
   const { data } = useRequest(() => getTransferInfoAction(), {
@@ -8,4 +8,16 @@ export const useGetTransferInfo = () => {
   })
 
   return { data }
+}
+
+export const useGetSyncMainData = () => {
+  return useRequest(
+    () =>
+      getSyncMainDataAction().then((data) => {
+        return data
+      }),
+    {
+      pollingInterval: 1000,
+    },
+  )
 }

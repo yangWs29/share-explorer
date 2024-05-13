@@ -117,8 +117,7 @@ dist
 
 .idea
 
-cert-manager/tmp-out
-cert-manager/cert-info
+**/rss-config
 
 tmp.js
 tmp.mjs

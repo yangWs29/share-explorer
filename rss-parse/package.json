@@ -1,0 +1,13 @@
+{
+  "name": "rss-parse",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.mjs",
+  "scripts": {},
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "rss-parser": "^3.13.0",
+    "uuid": "^9.0.1"
+  }
+}

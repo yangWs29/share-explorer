@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/cssinjs": "^1.18.1",
     "@ant-design/icons": "^5.2.6",
+    "@ant-design/pro-components": "^2.6.43",
     "@ant-design/static-style-extract": "^1.0.2",
     "@uiw/react-codemirror": "^4.21.21",
     "@xterm/addon-fit": "0.9.0-beta.1",

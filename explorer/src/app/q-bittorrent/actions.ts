@@ -1,4 +1,6 @@
 'use server'
-import { getTransferInfo } from '@/q-bittorrent/src/main.mjs'
+import { getSyncMainData, getTransferInfo } from '@/q-bittorrent/src/main.mjs'
 
 export const getTransferInfoAction = getTransferInfo
+
+export const getSyncMainDataAction = getSyncMainData
