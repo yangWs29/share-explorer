@@ -36,4 +36,4 @@ jobs:
           context: .
           file: ./explorer.full.Dockerfile
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.REGISTRY }}/yangws29/${{ env.IMAGE_NAME }}:latest
