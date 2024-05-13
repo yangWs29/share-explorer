@@ -23,6 +23,8 @@ WORKDIR /app
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* pnpm-workspace.yaml* ./
 COPY explorer/package.json ./explorer/package.json
 COPY explorer-manager/package.json ./explorer-manager/package.json
+COPY q-bittorrent/package.json ./q-bittorrent/package.json
+COPY rss-parse/package.json ./rss-parse/package.json
 RUN npm config set registry https://registry.npmmirror.com/
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
@@ -38,6 +40,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/explorer/node_modules ./explorer/node_modules
 COPY --from=deps /app/explorer-manager/node_modules ./explorer-manager/node_modules
+COPY --from=deps /app/q-bittorrent/node_modules ./q-bittorrent/node_modules
+COPY --from=deps /app/rss-parse/node_modules ./rss-parse/node_modules
 COPY . .
 
 # Next.js collects completely anonymous telemetry data about general usage.
