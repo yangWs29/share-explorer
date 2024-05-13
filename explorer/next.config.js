@@ -9,6 +9,8 @@ const nextConfig = {
   },
   output: 'standalone',
   reactStrictMode: false,
+  swcMinify: false,
+  transpilePackages: [],
 }
 
 module.exports = nextConfig
