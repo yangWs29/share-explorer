@@ -52,7 +52,7 @@ const FileExtra: React.FC<{ name: string } & React.PropsWithChildren & React.Com
     <Item onClick={onClick}>
       <FileExtraStyle>
         {children}
-        <TextStyle>{name.split('.').pop()}</TextStyle>
+        <TextStyle>{name.split('.').pop()?.slice(0, 5)}</TextStyle>
       </FileExtraStyle>
     </Item>
   )
