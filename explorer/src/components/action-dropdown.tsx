@@ -16,10 +16,13 @@ import { isGif, isImage, isRaw, isVideo } from '@/components/preview/ext-rxp'
 import { useMovePathDispatch } from '@/components/move-modal/move-path-context'
 import { useRenameDispatch } from '@/components/rename-modal/rename-context'
 import { useDeleteReaddirItem } from '@/app/path/readdir-context'
-
 import { deleteAction } from '@/app/path/actions'
 import FolderSize from '@/components/folder-size'
 import { VideoInfoContext } from '@/components/video-info-modal/video-info-context'
+import { EditFileContext } from '@/components/edit-file/edit-file-context'
+import { usePreviewGroupDispatch } from '@/components/preview/proview-group-context'
+import { useVideoPathDispatch } from '@/components/video-modal/video-path-context'
+import { useUnpackPathDispatch } from '@/components/unpack-modal/unpack-path-context'
 
 const ActionDropdown: React.FC<React.PropsWithChildren & { item: ReaddirItemType }> = ({ children, item }) => {
   const { modal } = App.useApp()
@@ -34,6 +37,10 @@ const ActionDropdown: React.FC<React.PropsWithChildren & { item: ReaddirItemType
   const preview_path = staticPath(name)
   const is_show_video_info = isVideo(name)
   const videoInfoDispatch = VideoInfoContext.useDispatch()
+  const editFileDispatch = EditFileContext.useDispatch()
+  const previewGroupDispatch = usePreviewGroupDispatch()
+  const videoPathDispatch = useVideoPathDispatch()
+  const unpackPathDispatch = useUnpackPathDispatch()
 
   const menu: MenuProps = {
     items: [
@@ -71,6 +78,16 @@ const ActionDropdown: React.FC<React.PropsWithChildren & { item: ReaddirItemType
             },
           })
         },
+      },
+      {
+        label: '打开方式',
+        key: 'open_with',
+        children: [
+          { label: '文本', key: 'text', onClick: () => editFileDispatch(joinSearchPath(name)) },
+          { label: '图片', key: 'image', onClick: () => previewGroupDispatch(name) },
+          { label: '视频', key: 'video', onClick: () => videoPathDispatch(staticPath(name)) },
+          { label: '7z', key: '7z', onClick: () => unpackPathDispatch(joinSearchPath(name)) },
+        ],
       },
     ],
   }
