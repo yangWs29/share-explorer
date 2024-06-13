@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { Button, Dropdown } from 'antd'
-import { DarkIcon, LightIcon } from '@/components/icon/theme'
+import { DarkIcon, LightIcon } from '@/components/icons/theme'
 import { ChangeThemeContext } from '@/components/change-theme/change-theme-context'
 import { useCookieState } from 'ahooks'
 
