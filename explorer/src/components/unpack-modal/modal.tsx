@@ -92,11 +92,13 @@ const UnpackModal: React.FC = () => {
         {pack_list_path === unpack_path && !isEmpty(unpack_list) && (
           <Card
             title="unpack"
-            bodyStyle={{
-              maxHeight: '300px',
-              overflowY: 'scroll',
-              paddingTop: 20,
-              overscrollBehavior: 'contain',
+            styles={{
+              body: {
+                maxHeight: '300px',
+                overflowY: 'scroll',
+                paddingTop: 20,
+                overscrollBehavior: 'contain',
+              },
             }}
           >
             {unpack_list.map(({ file, done }) => (

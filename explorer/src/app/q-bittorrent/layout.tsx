@@ -15,10 +15,12 @@ const layout: React.FC<React.PropsWithChildren> = ({ children }) => {
       <Card
         title={<>qBittorrent</>}
         style={{ height: 'calc(100vh - 40px)', display: 'flex', flexDirection: 'column' }}
-        bodyStyle={{
-          flex: 1,
-          overflow: 'scroll',
-          overscrollBehavior: 'contain',
+        styles={{
+          body: {
+            flex: 1,
+            overflow: 'scroll',
+            overscrollBehavior: 'contain',
+          },
         }}
         extra={
           <Space>

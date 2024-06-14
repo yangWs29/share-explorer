@@ -82,11 +82,13 @@ const MoveModal: React.FC = () => {
 
       {!isEmpty(chunk) && (
         <Card
-          bodyStyle={{
-            maxHeight: '300px',
-            overflowY: 'scroll',
-            paddingTop: 20,
-            overscrollBehavior: 'contain',
+          styles={{
+            body: {
+              maxHeight: '300px',
+              overflowY: 'scroll',
+              paddingTop: 20,
+              overscrollBehavior: 'contain',
+            },
           }}
         >
           <pre>{chunk.join('')}</pre>
