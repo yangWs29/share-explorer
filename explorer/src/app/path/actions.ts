@@ -23,13 +23,13 @@ export const readdirAction: (opt: ReaddirOptType) => Promise<ReaddirListType> = 
   return readdir(path, { only_dir, only_file, has_file_stat }).sort(sortMap[sort])
 }
 
-export const setCardColumnCookie = (column: number) => {
+export const setCardColumnCookie = async (column: number) => {
   cookies().set(card_column_cookie_key, String(column))
 
   revalidatePath('/path')
 }
 
-export const setDisplayTypeCookie = (display_type: string) => {
+export const setDisplayTypeCookie = async (display_type: string) => {
   cookies().set(display_type_cookie_key, display_type)
 
   revalidatePath('/path')

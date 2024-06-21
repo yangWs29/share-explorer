@@ -10,49 +10,43 @@ import ActionDropdown from '@/components/action-dropdown'
 import { EllipsisOutlined } from '@ant-design/icons'
 import { FolderSizeBtn } from '@/components/folder-size'
 import { useReplacePathname } from '@/components/use-replace-pathname'
+import { ReaddirItemType } from '@/explorer-manager/src/type'
+
+const renderItem = (item: ReaddirItemType) => {
+  const { joinSearchPath } = useReplacePathname()
+
+  return (
+    <List.Item style={{ padding: '0 8px' }}>
+      <Card
+        title={item.name}
+        extra={
+          <ActionDropdown item={item}>
+            <Button icon={<EllipsisOutlined />} />
+          </ActionDropdown>
+        }
+      >
+        <Preview item={item} />
+
+        {item.stat && (
+          <Space direction="vertical">
+            <div style={{ height: '1.5em' }}>
+              {item.is_directory ? <FolderSizeBtn path={joinSearchPath(item.name)} /> : <Bit>{item.stat.size}</Bit>}
+            </div>
+            <div style={{ height: '1.5em' }}>
+              <DateFormat>{item.stat.mtimeMs}</DateFormat>
+            </div>
+          </Space>
+        )}
+      </Card>
+    </List.Item>
+  )
+}
 
 const CardDisplay: React.FC = () => {
   const readdir = useReaddirContext()
   const column = useCardColumnContext()
-  const { joinSearchPath } = useReplacePathname()
 
-  return (
-    <List
-      grid={{ gutter: 0, column: column }}
-      dataSource={readdir}
-      renderItem={(item) => {
-        return (
-          <List.Item style={{ padding: '0 8px' }}>
-            <Card
-              title={item.name}
-              extra={
-                <ActionDropdown item={item}>
-                  <Button icon={<EllipsisOutlined />} />
-                </ActionDropdown>
-              }
-            >
-              <Preview item={item} />
-
-              {item.stat && (
-                <Space direction="vertical">
-                  <div style={{ height: '1.5em' }}>
-                    {item.is_directory ? (
-                      <FolderSizeBtn path={joinSearchPath(item.name)} />
-                    ) : (
-                      <Bit>{item.stat.size}</Bit>
-                    )}
-                  </div>
-                  <div style={{ height: '1.5em' }}>
-                    <DateFormat>{item.stat.mtimeMs}</DateFormat>
-                  </div>
-                </Space>
-              )}
-            </Card>
-          </List.Item>
-        )
-      }}
-    />
-  )
+  return <List grid={{ gutter: 0, column: column }} dataSource={readdir} renderItem={renderItem} />
 }
 
 export default CardDisplay

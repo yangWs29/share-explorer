@@ -8,7 +8,7 @@ export type ReaddirOptType = {
   has_file_stat?: '0' | '1'
 }
 
-export type ReaddirItemType = { is_directory: boolean; name: string; stat?: Stats }
+export type ReaddirItemType = { is_directory: boolean; name: string; file_path: string; stat?: Stats }
 
 export type ReaddirListType = ReaddirItemType[]
 

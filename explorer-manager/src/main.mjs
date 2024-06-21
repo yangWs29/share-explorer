@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { fileTypeFromFile } from 'file-type'
-import { formatPath, isInnerBaseExplorer } from './format-path.mjs'
+import { formatPath, isInnerBaseExplorer, resetPath } from './format-path.mjs'
 import extName from 'ext-name'
 import fsExtra from 'fs-extra'
 import getFolderSize from 'get-folder-size'
@@ -49,9 +49,10 @@ export const readdir = (path = '.', { only_dir = '0', only_file = '0', show_hide
     const is_directory = !Dirent.isFile()
     const name = Dirent.name
     let stat = {}
+    const file_path = formatPath(path, name)
 
     if (has_file_stat === '1') {
-      stat = fs.statSync(formatPath(path, name))
+      stat = fs.statSync(file_path)
     }
 
     if (show_hide === '0' && checkIsHideExp.test(name)) {
@@ -66,13 +67,14 @@ export const readdir = (path = '.', { only_dir = '0', only_file = '0', show_hide
       if (is_directory) {
         return dir_list
       } else if (has_file_stat !== '1') {
-        stat = fs.statSync(formatPath(path, name))
+        stat = fs.statSync(file_path)
       }
     }
 
     dir_list.push({
       name,
       is_directory,
+      file_path: resetPath(file_path),
       stat: { ...stat },
     })
 

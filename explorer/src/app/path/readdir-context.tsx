@@ -15,7 +15,7 @@ export const useGetReaddir = () => {
   })
 }
 
-const ReaddirContext = createCtx<ReaddirListType>()
+export const ReaddirContext = createCtx<ReaddirListType>()
 
 export const useReaddirContext = () => {
   const readdir_list = ReaddirContext.useStore()

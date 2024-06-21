@@ -5,9 +5,13 @@ export const pathExp = /(^\/)?path/
 export const encodePathItem = (path: string) => {
   return path
     .split('/')
+    .filter(Boolean)
     .map((text) => encodeURIComponent(text))
     .join('/')
 }
+
+export const staticPath = (path: string) => `/static/${encodePathItem(path)}`
+export const explorerPath = (path: string) => `/path/${encodePathItem(path)}`
 
 export const useReplacePathname = () => {
   const pathname = decodeURIComponent(usePathname() || '')
@@ -15,7 +19,6 @@ export const useReplacePathname = () => {
 
   const joinSearchPath = (path: string) => encodePathItem(`${replace_pathname}/${path}`)
   const joinPath = (path: string) => encodePathItem(`${pathname}/${path}`)
-  const staticPath = (path: string) => `/static${joinSearchPath(path)}`
 
   return {
     pathname: pathname,

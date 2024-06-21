@@ -1,16 +1,10 @@
 'use client'
-import React, { useState } from 'react'
-import { useInterval } from 'ahooks'
-import dayjs from 'dayjs'
+import React from 'react'
+import { Button } from 'antd'
+import { CalendarOutlined } from '@ant-design/icons'
 
 const DateItem: React.FC = () => {
-  const [time, setTime] = useState(dayjs().format('YYYY年MM月DD日 HH:mm'))
-
-  useInterval(() => {
-    setTime(dayjs().format('YYYY年MM月DD日 HH:mm'))
-  }, 1000)
-
-  return <div>{time}</div>
+  return <Button icon={<CalendarOutlined />} type="text" />
 }
 
 export default DateItem

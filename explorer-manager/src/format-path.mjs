@@ -2,6 +2,11 @@ import sys_path from 'path'
 
 export const BASE_EXPLORER_PATH = process.env.EXPLORER_PATH || process.env.HOME
 
+/**
+ *
+ * @param path {string}
+ * @return {string}
+ */
 export const formatPath = (...path) => {
   return sys_path
     .join(BASE_EXPLORER_PATH, ...path)
@@ -16,6 +21,11 @@ export const formatPath = (...path) => {
     .join('/')
 }
 
+/**
+ *
+ * @param path {string}
+ * @return {string}
+ */
 export const resetPath = (path) => {
   return path.replace(BASE_EXPLORER_PATH, '')
 }

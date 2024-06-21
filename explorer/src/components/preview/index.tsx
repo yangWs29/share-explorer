@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { isGif, isImage, isText, isVideo, isZip } from '@/components/preview/ext-rxp'
 import { usePreviewGroupDispatch } from '@/components/preview/proview-group-context'
 import { ReaddirItemType } from '@/explorer-manager/src/type'
-import { useReplacePathname } from '@/components/use-replace-pathname'
+import { explorerPath, staticPath, useReplacePathname } from '@/components/use-replace-pathname'
 import { useVideoPathDispatch } from '@/components/video-modal/video-path-context'
 import { useUnpackPathDispatch } from '@/components/unpack-modal/unpack-path-context'
 import { EditFileContext } from '@/components/edit-file/edit-file-context'
@@ -66,11 +66,10 @@ const Item: React.FC<React.PropsWithChildren & { onClick?: () => void }> = ({ ch
   )
 }
 
-const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
+export const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
   const previewGroupDispatch = usePreviewGroupDispatch()
   const videoPathDispatch = useVideoPathDispatch()
-  const { name, is_directory } = item
-  const { staticPath, joinSearchPath } = useReplacePathname()
+  const { name, is_directory, file_path } = item
   const unpackPathDispatch = useUnpackPathDispatch()
   const editFileDispatch = EditFileContext.useDispatch()
 
@@ -84,14 +83,14 @@ const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
 
   if (isVideo(name)) {
     return (
-      <FileExtra name={name} onClick={() => videoPathDispatch(staticPath(name))}>
+      <FileExtra name={name} onClick={() => videoPathDispatch(staticPath(file_path))}>
         <VideoCameraOutlined />
       </FileExtra>
     )
   }
 
   if (isImage(name)) {
-    const image_path = staticPath(name)
+    const image_path = staticPath(file_path)
 
     return (
       <Image
@@ -103,7 +102,7 @@ const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
         style={{
           objectFit: 'scale-down', //"contain" | "cover" | "fill" | "none" | "scale-down"
         }}
-        unoptimized={isGif(image_path)}
+        unoptimized={isGif(name)}
         placeholder="empty"
       />
     )
@@ -111,7 +110,7 @@ const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
 
   if (isZip(name)) {
     return (
-      <FileExtra name={name} onClick={() => unpackPathDispatch(joinSearchPath(name))}>
+      <FileExtra name={name} onClick={() => unpackPathDispatch(file_path)}>
         <FileZipOutlined />
       </FileExtra>
     )
@@ -122,7 +121,7 @@ const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
       <FileExtra
         name={name}
         onClick={() => {
-          editFileDispatch(joinSearchPath(name))
+          editFileDispatch(file_path)
         }}
       >
         <FileOutlined />
@@ -138,12 +137,11 @@ const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
 }
 
 const InjectItemStyle = (props: React.ComponentProps<typeof Preview>) => {
-  const { joinPath } = useReplacePathname()
   const { item } = props
 
   return (
     <ItemStyle
-      href={joinPath(item.name)}
+      href={explorerPath(item.file_path)}
       prefetch={false}
       onClick={(e) => {
         if (!item.is_directory) {
