@@ -115,9 +115,11 @@ export const deleteDir = async (path = '') => {
   const is_exist = fs.existsSync(delete_path)
 
   if (is_exist) {
-    if (isInnerBaseExplorer(delete_path)) {
+    if (!isInnerBaseExplorer(delete_path)) {
       return false
     }
+
+    console.log('delete', formatPath(path))
 
     return fs.rmSync(formatPath(path), { recursive: true })
   }
