@@ -8,7 +8,7 @@ import { CloseOutlined } from '@ant-design/icons'
 
 const WindowBox: React.FC<{ window_id: number } & CardProps> = ({ children, window_id, ...props }) => {
   const { remove, getWindowItem, changeActivity } = useDockAction()
-  const { setNodeRef, style, draggable_button } = useWindowDraggable({ id: window_id })
+  const { setNodeRef, style, draggable_button, listeners, attributes } = useWindowDraggable({ id: window_id })
 
   const { position, activity } = getWindowItem(window_id)
 
@@ -25,7 +25,11 @@ const WindowBox: React.FC<{ window_id: number } & CardProps> = ({ children, wind
       }}
     >
       <Card
-        title={props.title}
+        title={
+          <Space style={{ width: '100%' }} {...listeners} {...attributes}>
+            {props.title}
+          </Space>
+        }
         extra={
           <Space>
             {draggable_button}

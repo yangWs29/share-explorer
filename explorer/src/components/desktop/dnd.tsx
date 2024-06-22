@@ -1,12 +1,12 @@
 'use client'
 import React, { CSSProperties } from 'react'
-import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core'
+import { DndContext, MouseSensor, useDraggable, useDroppable, useSensor, useSensors } from '@dnd-kit/core'
 import { Button } from 'antd'
 import { DragOutlined } from '@ant-design/icons'
 import { useDockAction } from '@/components/desktop/dock/dock-context'
 
 export const useWindowDraggable = ({ id }: { id: number }) => {
-  const { attributes, listeners, setNodeRef, transform, activatorEvent } = useDraggable({
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: `draggable-${id}`,
     data: { type: 'window', id: id },
   })
@@ -24,6 +24,8 @@ export const useWindowDraggable = ({ id }: { id: number }) => {
     setNodeRef,
     style,
     draggable_button: <Button {...listeners} {...attributes} icon={<DragOutlined />} />,
+    attributes,
+    listeners,
   }
 }
 
@@ -45,11 +47,13 @@ export const Droppable: React.FC<React.PropsWithChildren & { id?: string }> = (p
 
 export const WindowDndContext: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { changeWindowPositionItem } = useDockAction()
+  const sensors = useSensors(useSensor(MouseSensor, { activationConstraint: { distance: 8 } }))
 
   return (
     <DndContext
+      sensors={sensors}
       onDragEnd={(event) => {
-        const { activatorEvent, active, delta } = event
+        const { active, delta } = event
 
         active &&
           changeWindowPositionItem(active.data.current?.id, {
