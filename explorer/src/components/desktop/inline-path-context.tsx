@@ -7,7 +7,7 @@ import { explorerPath, replacePath } from '@/components/use-replace-pathname'
 export const InlinePathContext = createCtx<string>(null!)
 
 export const useInlinePathname = () => {
-  const inline_path = InlinePathContext.useStore()
+  const inline_path = decodeURIComponent(InlinePathContext.useStore())
   const browser_pathname = usePathname()
 
   return { pathname: inline_path || browser_pathname || '', is_inline: !!inline_path }
