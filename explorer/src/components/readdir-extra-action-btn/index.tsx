@@ -1,14 +1,16 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, Dropdown, Modal } from 'antd'
-import CreateFolderForm from '@/components/readdir-extra-action-btn/create-folder-form'
+import { useCreateFolderForm } from '@/components/readdir-extra-action-btn/create-folder-form'
 import { FileOutlined, FolderOutlined, PlusOutlined, ReloadOutlined } from '@ant-design/icons'
-import CreateFileForm from '@/components/readdir-extra-action-btn/create-file-form'
+import { useCreateFile } from '@/components/readdir-extra-action-btn/create-file-form'
 import { useUpdateReaddirList } from '@/app/path/readdir-context'
 
 const ReaddirExtraActionBtn: React.FC = () => {
-  const [open, changeOpen] = useState<'folder' | 'file' | undefined>(undefined)
   const { update } = useUpdateReaddirList()
+  const [modal, contextHolder] = Modal.useModal()
+  const { createFolder, createFolderFormContent } = useCreateFolderForm()
+  const { createFile, createFileFormContent } = useCreateFile()
 
   return (
     <>
@@ -23,7 +25,14 @@ const ReaddirExtraActionBtn: React.FC = () => {
               icon: <FolderOutlined />,
               label: '创建文件夹',
               onClick: () => {
-                changeOpen('folder')
+                modal.confirm({
+                  title: '新建文件夹',
+                  icon: null,
+                  content: createFolderFormContent,
+                  onOk: createFolder,
+                  okText: '创建',
+                  cancelText: '取消',
+                })
               },
             },
             {
@@ -31,7 +40,14 @@ const ReaddirExtraActionBtn: React.FC = () => {
               icon: <FileOutlined />,
               label: '创建文件',
               onClick: () => {
-                changeOpen('file')
+                modal.confirm({
+                  title: '新建文件',
+                  icon: null,
+                  content: createFileFormContent,
+                  onOk: createFile,
+                  okText: '创建',
+                  cancelText: '取消',
+                })
               },
             },
             {
@@ -46,14 +62,7 @@ const ReaddirExtraActionBtn: React.FC = () => {
         <Button icon={<PlusOutlined />} />
       </Dropdown>
 
-      <Modal
-        open={!!open}
-        onCancel={() => changeOpen(undefined)}
-        title={open === 'folder' ? '新建文件夹' : '新建文件'}
-        footer={false}
-      >
-        {open === 'folder' ? <CreateFolderForm /> : <CreateFileForm />}
-      </Modal>
+      {contextHolder}
     </>
   )
 }

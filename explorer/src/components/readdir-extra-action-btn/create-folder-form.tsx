@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
-import { App, Flex, Form, Input } from 'antd'
-import SubmitBtn from '@/components/submit-btn'
+import { App, Form, FormInstance, Input } from 'antd'
 import { createFolderAction } from '@/components/readdir-extra-action-btn/action'
 import { useUpdateReaddirList } from '@/app/path/readdir-context'
 import { useReplacePathname } from '@/components/use-replace-pathname'
@@ -10,16 +9,17 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo)
 }
 
-const CreateFolderForm: React.FC = () => {
+export const useCreateFolderForm = () => {
+  const [form] = Form.useForm()
   const { update } = useUpdateReaddirList()
   const { message: appMessage } = App.useApp()
   const { replace_pathname } = useReplacePathname()
 
-  return (
-    <Form
-      labelCol={{ span: 2 }}
-      initialValues={{ dir_name: '新建文件夹' }}
-      onFinish={(values) => {
+  return {
+    createFolderFormContent: <CreateFolderForm form={form} />,
+    createFolderForm: form,
+    createFolder: async () => {
+      return form.validateFields().then((values) => {
         const { dir_name } = values
 
         createFolderAction([replace_pathname, dir_name].join('/'))
@@ -33,17 +33,16 @@ const CreateFolderForm: React.FC = () => {
           .catch(({ message }) => {
             appMessage.error(`新建文件夹失败: ${message}`).then()
           })
-      }}
-      onFinishFailed={onFinishFailed}
-    >
+      })
+    },
+  }
+}
+
+const CreateFolderForm: React.FC<{ form?: FormInstance }> = ({ form }) => {
+  return (
+    <Form form={form} labelCol={{ span: 2 }} initialValues={{ dir_name: '新建文件夹' }} onFinishFailed={onFinishFailed}>
       <Form.Item name="dir_name" rules={[{ required: true, message: '请输入文件夹名称' }]}>
         <Input />
-      </Form.Item>
-
-      <Form.Item>
-        <Flex justify="flex-end">
-          <SubmitBtn>创建</SubmitBtn>
-        </Flex>
       </Form.Item>
     </Form>
   )

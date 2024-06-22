@@ -4,11 +4,12 @@ import Image from 'next/image'
 import { isGif, isImage, isText, isVideo, isZip } from '@/components/preview/ext-rxp'
 import { usePreviewGroupDispatch } from '@/components/preview/proview-group-context'
 import { ReaddirItemType } from '@/explorer-manager/src/type'
-import { explorerPath, staticPath, useReplacePathname } from '@/components/use-replace-pathname'
+import { explorerPath, staticPath } from '@/components/use-replace-pathname'
 import { useVideoPathDispatch } from '@/components/video-modal/video-path-context'
 import { useUnpackPathDispatch } from '@/components/unpack-modal/unpack-path-context'
 import { EditFileContext } from '@/components/edit-file/edit-file-context'
 import styled from 'styled-components'
+import { useInlinePathname, useInlineRouter } from '@/components/desktop/inline-path-context'
 import Link from 'next/link'
 
 export const ItemStyle = styled(Link)`
@@ -138,14 +139,22 @@ export const Preview: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
 
 const InjectItemStyle = (props: React.ComponentProps<typeof Preview>) => {
   const { item } = props
+  const { push } = useInlineRouter()
+  const { is_inline } = useInlinePathname()
 
   return (
     <ItemStyle
       href={explorerPath(item.file_path)}
       prefetch={false}
       onClick={(e) => {
+        if (is_inline) {
+          e.preventDefault()
+        }
+
         if (!item.is_directory) {
           e.preventDefault()
+        } else {
+          push(explorerPath(item.file_path))
         }
       }}
     >

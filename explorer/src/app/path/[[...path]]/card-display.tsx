@@ -1,9 +1,9 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Card, List, Space } from 'antd'
 import Bit from '@/components/bit'
 import DateFormat from '@/components/date-format'
-import { useReaddirContext } from '@/app/path/readdir-context'
+import { useReaddirContext, useUpdateReaddirList } from '@/app/path/readdir-context'
 import { useCardColumnContext } from '@/app/path/card-colunm-context'
 import Preview from '@/components/preview'
 import ActionDropdown from '@/components/action-dropdown'
@@ -11,8 +11,9 @@ import { EllipsisOutlined } from '@ant-design/icons'
 import { FolderSizeBtn } from '@/components/folder-size'
 import { useReplacePathname } from '@/components/use-replace-pathname'
 import { ReaddirItemType } from '@/explorer-manager/src/type'
+import { useInlinePathname } from '@/components/desktop/inline-path-context'
 
-const renderItem = (item: ReaddirItemType) => {
+const RenderItem: React.FC<{ item: ReaddirItemType }> = ({ item }) => {
   const { joinSearchPath } = useReplacePathname()
 
   return (
@@ -45,8 +46,21 @@ const renderItem = (item: ReaddirItemType) => {
 const CardDisplay: React.FC = () => {
   const readdir = useReaddirContext()
   const column = useCardColumnContext()
+  const { loading, update } = useUpdateReaddirList()
+  const { pathname, is_inline } = useInlinePathname()
 
-  return <List grid={{ gutter: 0, column: column }} dataSource={readdir} renderItem={renderItem} />
+  useEffect(() => {
+    is_inline && update()
+  }, [pathname])
+
+  return (
+    <List
+      loading={loading}
+      grid={{ gutter: 0, column: column }}
+      dataSource={readdir}
+      renderItem={(item) => <RenderItem item={item} />}
+    />
+  )
 }
 
 export default CardDisplay

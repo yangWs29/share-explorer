@@ -13,34 +13,37 @@ import PreviewGroupProvider from '@/components/preview/proview-group-context'
 import DesktopContext from '@/components/desktop/desktop-context'
 import { ReaddirProvider } from '@/app/path/readdir-context'
 import WindowContent from '@/components/desktop/explorer-window/window-content'
+import { SortProvider } from '@/components/readdir-sort/sort-context'
 
 const ExplorerWindow: React.FC<{ window_id: number }> = ({ window_id }) => {
   return (
     <ReaddirProvider value={[]}>
       <CardColumnProvider value={4}>
-        <DisplayTypeProvider value={'card'}>
-          <VideoPathProvider>
-            <ImgExifProvider>
-              <MovePathProvider>
-                <RenameProvider>
-                  <DfProvider>
-                    <UnpackPathProvider>
-                      <VideoInfoProvider>
-                        <EditFileProvider>
-                          <PreviewGroupProvider>
-                            <DesktopContext>
-                              <WindowContent window_id={window_id} />
-                            </DesktopContext>
-                          </PreviewGroupProvider>
-                        </EditFileProvider>
-                      </VideoInfoProvider>
-                    </UnpackPathProvider>
-                  </DfProvider>
-                </RenameProvider>
-              </MovePathProvider>
-            </ImgExifProvider>
-          </VideoPathProvider>
-        </DisplayTypeProvider>
+        <SortProvider value={'asc_name'}>
+          <DisplayTypeProvider value={'card'}>
+            <VideoPathProvider>
+              <ImgExifProvider>
+                <MovePathProvider>
+                  <RenameProvider>
+                    <DfProvider>
+                      <UnpackPathProvider>
+                        <VideoInfoProvider>
+                          <EditFileProvider>
+                            <PreviewGroupProvider>
+                              <DesktopContext>
+                                <WindowContent window_id={window_id} />
+                              </DesktopContext>
+                            </PreviewGroupProvider>
+                          </EditFileProvider>
+                        </VideoInfoProvider>
+                      </UnpackPathProvider>
+                    </DfProvider>
+                  </RenameProvider>
+                </MovePathProvider>
+              </ImgExifProvider>
+            </VideoPathProvider>
+          </DisplayTypeProvider>
+        </SortProvider>
       </CardColumnProvider>
     </ReaddirProvider>
   )

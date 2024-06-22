@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
-import { App, Flex, Form, Input } from 'antd'
-import SubmitBtn from '@/components/submit-btn'
+import { App, Form, FormInstance, Input } from 'antd'
 import { createFileAction } from '@/components/readdir-extra-action-btn/action'
 import { useUpdateReaddirList } from '@/app/path/readdir-context'
 import { useReplacePathname } from '@/components/use-replace-pathname'
@@ -10,16 +9,17 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo)
 }
 
-const CreateFileForm: React.FC = () => {
+export const useCreateFile = () => {
+  const [form] = Form.useForm()
   const { update } = useUpdateReaddirList()
   const { message: appMessage } = App.useApp()
   const { replace_pathname } = useReplacePathname()
 
-  return (
-    <Form
-      labelCol={{ span: 2 }}
-      initialValues={{ file_name: '新建文件.txt' }}
-      onFinish={(values) => {
+  return {
+    createFileFormContent: <CreateFileForm form={form} />,
+    createFileForm: form,
+    createFile: async () => {
+      return form.validateFields().then((values) => {
         const { file_name } = values
 
         createFileAction([replace_pathname, file_name].join('/'))
@@ -33,17 +33,21 @@ const CreateFileForm: React.FC = () => {
           .catch(({ message }) => {
             appMessage.error(`新建文件失败: ${message}`).then()
           })
-      }}
+      })
+    },
+  }
+}
+
+const CreateFileForm: React.FC<{ form?: FormInstance }> = ({ form }) => {
+  return (
+    <Form
+      form={form}
+      labelCol={{ span: 2 }}
+      initialValues={{ file_name: '新建文件.txt' }}
       onFinishFailed={onFinishFailed}
     >
       <Form.Item name="file_name" rules={[{ required: true, message: '请输入文名称' }]}>
         <Input />
-      </Form.Item>
-
-      <Form.Item>
-        <Flex justify="flex-end">
-          <SubmitBtn>创建</SubmitBtn>
-        </Flex>
       </Form.Item>
     </Form>
   )

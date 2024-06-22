@@ -39,7 +39,7 @@ const WindowBox: React.FC<{ window_id: number } & CardProps> = ({ children, wind
             />
           </Space>
         }
-        styles={{ body: { flex: 1, overflow: 'hidden' } }}
+        styles={{ body: { flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' } }}
         style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
       >
         {children}

@@ -1,15 +1,15 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Space, Table } from 'antd'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import Bit from '@/components/bit'
 import DateFormat from '@/components/date-format'
-import { useReaddirContext } from '@/app/path/readdir-context'
+import { useReaddirContext, useUpdateReaddirList } from '@/app/path/readdir-context'
 import Preview from '@/components/preview'
 import styled from 'styled-components'
 import ActionDropdown from '@/components/action-dropdown'
 import naturalCompare from 'natural-compare-lite'
+import { useInlinePathname, useInlineRouter } from '@/components/desktop/inline-path-context'
+import { staticPath } from '@/components/use-replace-pathname'
 
 const PreviewItemStyle = styled.div`
   position: relative;
@@ -17,11 +17,18 @@ const PreviewItemStyle = styled.div`
 `
 
 const TableDisplay: React.FC = () => {
-  const pathname = usePathname()
-  const readdir = useReaddirContext()
+  const { push } = useInlineRouter()
+  const { loading, update } = useUpdateReaddirList()
+  const readdir_list = useReaddirContext()
+  const { pathname, is_inline } = useInlinePathname()
+
+  useEffect(() => {
+    is_inline && update()
+  }, [pathname])
 
   return (
     <Table
+      loading={loading}
       rowKey={'name'}
       pagination={false}
       columns={[
@@ -36,12 +43,14 @@ const TableDisplay: React.FC = () => {
                 <PreviewItemStyle>
                   <Preview item={item} />
                 </PreviewItemStyle>
-                <Link
-                  href={item.is_directory ? `${pathname}/${encodeURIComponent(name)}` : `${pathname}`}
-                  prefetch={false}
+                <Button
+                  type="text"
+                  onClick={() => {
+                    item.is_directory ? push(item.file_path) : window.open(staticPath(item.file_path), '_blank')
+                  }}
                 >
                   {name}
-                </Link>
+                </Button>
               </Space>
             )
           },
@@ -76,7 +85,7 @@ const TableDisplay: React.FC = () => {
           },
         },
       ]}
-      dataSource={readdir}
+      dataSource={readdir_list}
     />
   )
 }

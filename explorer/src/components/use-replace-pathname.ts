@@ -1,4 +1,4 @@
-import { usePathname } from 'next/navigation'
+import { useInlinePathname } from '@/components/desktop/inline-path-context'
 
 export const pathExp = /(^\/)?path/
 
@@ -12,9 +12,10 @@ export const encodePathItem = (path: string) => {
 
 export const staticPath = (path: string) => `/static/${encodePathItem(path)}`
 export const explorerPath = (path: string) => `/path/${encodePathItem(path)}`
+export const replacePath = (path: string) => path.replace(pathExp, '')
 
 export const useReplacePathname = () => {
-  const pathname = decodeURIComponent(usePathname() || '')
+  const pathname = decodeURIComponent(useInlinePathname().pathname || '')
   const replace_pathname = pathname.replace(pathExp, '')
 
   const joinSearchPath = (path: string) => encodePathItem(`${replace_pathname}/${path}`)

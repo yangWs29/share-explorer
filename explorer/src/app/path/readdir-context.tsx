@@ -37,11 +37,14 @@ export const useDeleteReaddirItem = () => {
 
 export const useUpdateReaddirList = () => {
   const { replace_pathname } = useReplacePathname()
-  const { runAsync } = useGetReaddir()
+  const { data, runAsync, loading, refresh } = useGetReaddir()
   const changeReaddirList = ReaddirContext.useDispatch()
   const router = useRouter()
 
   return {
+    loading: loading,
+    refresh: refresh,
+    readdir_list: data,
     update: () => {
       runAsync(replace_pathname).then((data) => {
         router.refresh()

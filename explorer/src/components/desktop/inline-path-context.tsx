@@ -1,17 +1,31 @@
 'use client'
 import createCtx from '@/lib/create-ctx'
 import React from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { explorerPath, replacePath } from '@/components/use-replace-pathname'
 
 export const InlinePathContext = createCtx<string>(null!)
 
 export const useInlinePathname = () => {
   const inline_path = InlinePathContext.useStore()
   const browser_pathname = usePathname()
-  const pathname = inline_path || browser_pathname || ''
+
+  return { pathname: inline_path || browser_pathname || '', is_inline: !!inline_path }
+}
+
+export const useInlineRouter = () => {
+  const { is_inline } = useInlinePathname()
+  const changePath = InlinePathContext.useDispatch()
+  const router = useRouter()
 
   return {
-    pathname: pathname,
+    push: (path: string) => {
+      if (is_inline) {
+        changePath(replacePath(path))
+      } else {
+        router.push(explorerPath(path))
+      }
+    },
   }
 }
 
