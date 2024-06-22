@@ -10,15 +10,15 @@ const WindowBox: React.FC<{ window_id: number } & CardProps> = ({ children, wind
   const { remove, getWindowItem, changeActivity } = useDockAction()
   const { setNodeRef, style, draggable_button, listeners, attributes } = useWindowDraggable({ id: window_id })
 
-  const { position, activity } = getWindowItem(window_id)
+  const { position } = getWindowItem(window_id)
 
   return (
     <WindowItemStyle
       ref={setNodeRef}
       style={{
         transform: `translate3d(${position.offsetX}px, ${position.offsetY}px, 0)`,
-        zIndex: activity ? 101 : 100,
         ...style,
+        zIndex: position.zIndex,
       }}
       onClick={() => {
         changeActivity(window_id)
