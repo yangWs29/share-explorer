@@ -6,7 +6,12 @@ import { useWindowDraggable } from '@/components/desktop/dnd'
 import { Card, CardProps, Space } from 'antd'
 import { CloseOutlined } from '@ant-design/icons'
 
-const WindowBox: React.FC<{ window_id: number } & CardProps> = ({ children, window_id, ...props }) => {
+const WindowBox: React.FC<{ window_id: number; auto_height?: boolean } & CardProps> = ({
+  children,
+  window_id,
+  auto_height,
+  ...props
+}) => {
   const { remove, getWindowItem, changeActivity } = useDockAction()
   const { setNodeRef, style, draggable_button, listeners, attributes } = useWindowDraggable({ id: window_id })
 
@@ -15,6 +20,7 @@ const WindowBox: React.FC<{ window_id: number } & CardProps> = ({ children, wind
   return (
     <WindowItemStyle
       ref={setNodeRef}
+      data-auto-height={auto_height}
       style={{
         transform: `translate3d(${position.offsetX}px, ${position.offsetY}px, 0)`,
         ...style,

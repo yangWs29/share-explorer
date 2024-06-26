@@ -1,11 +1,11 @@
 'use server'
-import { addUrlsTorrent, client } from '@/q-bittorrent/src/main.mjs'
+import { addUrlsTorrent, getClient } from '@/q-bittorrent/src/main.mjs'
 import { TorrentCategories } from '@/q-bittorrent/src/types'
 import { deleteRSS, getRSSList, setRSS, getRSS, def_rss_item, getRSSLinkDetail } from '@/rss-parse/src/main.mjs'
 import { revalidatePath } from 'next/cache'
 import { RSSItemType } from '@/rss-parse/src/types'
 
-export const getCategoriesAction: () => Promise<TorrentCategories> = () => client.getCategories()
+export const getCategoriesAction: () => Promise<TorrentCategories> = () => getClient().getCategories()
 
 export const getRSSListAction: () => Promise<RSSItemType[]> = () => {
   return Promise.resolve(Array.from(getRSSList()))

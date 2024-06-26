@@ -1,15 +1,17 @@
 'use client'
 import React from 'react'
 import { Table } from 'antd'
-import { QBittorrentContext } from '@/app/q-bittorrent/q-bittorrent-context'
 import DateFormat from '@/components/date-format'
 import Bit from '@/components/bit'
+import { useRequest } from 'ahooks'
+import { getListTorrentsAction } from '@/app/q-bittorrent/actions'
 
 const TorrentTable: React.FC = () => {
-  const data = QBittorrentContext.useStore()
+  const { data, loading } = useRequest(() => getListTorrentsAction())
 
   return (
     <Table
+      loading={loading}
       rowKey="hash"
       pagination={false}
       dataSource={data}

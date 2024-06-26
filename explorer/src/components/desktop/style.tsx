@@ -11,6 +11,11 @@ export const WindowItemStyle = styled.div`
   margin: 0 auto;
   height: 50%;
   overflow: hidden;
+
+  &[data-auto-height='true'] {
+    height: initial;
+    max-height: 50%;
+  }
 `
 
 export const WindowBodyStyle = styled.div`

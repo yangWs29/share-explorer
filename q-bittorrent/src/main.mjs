@@ -1,17 +1,44 @@
 import { QBittorrent } from '@ctrl/qbittorrent'
+import { getConfig } from '../../config-manager/edit-config.mjs'
 
-export const client = new QBittorrent({
-  baseUrl: process.env.Q_BITTORRENT_BASE_URL,
-  username: process.env.Q_BITTORRENT_USERNAME,
-  password: process.env.Q_BITTORRENT_PASSWORD,
-})
+const config = getConfig()
+
+/**
+ *
+ * @type {typeof QBittorrent}
+ */
+let client = undefined
+
+/**
+ *
+ * @return {QBittorrent}
+ */
+export const getClient = () => {
+  if (client) {
+    return client
+  }
+
+  if (config?.q_bittorrent?.base) {
+    const { host, username, password } = config.q_bittorrent.base
+
+    client = new QBittorrent({
+      baseUrl: host,
+      username: username,
+      password: password,
+    })
+  } else {
+    throw new Error('qBittorrent base undefined')
+  }
+
+  return client
+}
 
 /**
  *
  * @returns {Promise<import('./types').TRANSFER_INFO_TYPE>}
  */
 export const getTransferInfo = () =>
-  client
+  getClient()
     .request('/transfer/info', 'GET', { time: Date.now() }, undefined, { 'Cache-Control': 'no-cache' })
     .then((data) => {
       console.log({ data })
@@ -28,10 +55,12 @@ export const getTransferInfo = () =>
  */
 let rid = undefined
 export const getSyncMainData = () => {
-  return client.request('/sync/maindata', 'GET', { rid, full_update: false }).then((data) => {
-    rid = data.rid
-    return { rid: data.rid, server_state: data.server_state }
-  })
+  return getClient()
+    .request('/sync/maindata', 'GET', { rid, full_update: false })
+    .then((data) => {
+      rid = data.rid
+      return { rid: data.rid, server_state: data.server_state }
+    })
 }
 
 /**
@@ -46,12 +75,5 @@ export const addUrlsTorrent = (options) => {
     form.append(key, `${value}`)
   }
 
-  return client.request(
-    '/torrents/add',
-    'POST',
-    undefined,
-    form,
-    {},
-    false,
-  )
+  return getClient().request('/torrents/add', 'POST', undefined, form, {}, false)
 }

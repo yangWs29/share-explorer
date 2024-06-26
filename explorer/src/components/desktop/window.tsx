@@ -3,7 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import { Card, Space } from 'antd'
 import { QBittorrentIcon } from '@/components/icons/q-bittorrent'
-import { FolderOutlined, WifiOutlined } from '@ant-design/icons'
+import { FolderOutlined, SettingOutlined, WifiOutlined } from '@ant-design/icons'
 import DateItem from '@/components/desktop/date-item'
 import Dock from '@/components/desktop/dock'
 import { useDockAction } from '@/components/desktop/dock/dock-context'
@@ -12,7 +12,7 @@ export const app_list = [
   { title: 'explorer', type: 'window', href: '/path', icon: <FolderOutlined style={{ fontSize: '1em' }} /> },
   {
     title: 'qBittorrent',
-    type: 'page',
+    type: 'window',
     href: '/q-bittorrent',
     icon: <QBittorrentIcon style={{ fontSize: '1em' }} />,
   },
@@ -21,6 +21,12 @@ export const app_list = [
     type: 'page',
     href: '/rss/rss-list',
     icon: <WifiOutlined style={{ fontSize: '1em', transform: 'rotate(45deg)' }} />,
+  },
+  {
+    title: 'config',
+    type: 'window',
+    href: '/config',
+    icon: <SettingOutlined style={{ fontSize: '1em' }} />,
   },
 ]
 
