@@ -20,6 +20,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@/config-manager/*": ["../config-manager/*"],
       "@/explorer-manager/*": ["../explorer-manager/*"],
       "@/q-bittorrent/*": ["../q-bittorrent/*"],
       "@/rss-parse/*": ["../rss-parse/*"]

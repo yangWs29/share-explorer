@@ -1,5 +1,6 @@
 packages:
   - "explorer"
+  - "config-manager"
   - "explorer-manager"
   - "q-bittorrent"
   - "rss-parse"
